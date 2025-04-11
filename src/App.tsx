@@ -32,22 +32,41 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Login from './pages/Login';
+import NavBar from './components/NavBar';
+import { useCookies } from 'react-cookie';
+import { useEffect } from 'react';
+import Menu from './components/Menu';
+import Payment from './pages/Payments';
+import { Capacitor } from '@capacitor/core';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
+const App: React.FC = () =>{
+  const [cookies, setCookie, removeCookie] = useCookies(['login']);
+  useEffect(()=>{ 
+    console.log(" login cookies  ",cookies)
+    if (Capacitor.getPlatform() === 'electron') {
+      console.log('Running on Electron');
+    }
+  },[])
+  return(
+  <IonApp  >
+      <Menu />
     <IonReactRouter>
+     {cookies?.login && <NavBar />} 
+
       <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
+        <Route exact path="/login" component={Login} /> 
+        <Route exact path="/home" component={Home} /> 
+        <Route exact path="/payment" component={Payment} /> 
+
         <Route exact path="/">
-          <Redirect to="/home" />
+          <Redirect to="/login" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
-);
+)};
 
 export default App;

@@ -1,0 +1,16 @@
+.input-cash{
+    position: relative;
+    border: 1px solid #D5D5D5;
+    border-radius: 5px; 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 20rem;
+    padding-right: 10px;
+    margin-bottom: 1rem;
+}
+.input-cash ion-input{
+    text-align: right !important;
+    width: 70%;
+}

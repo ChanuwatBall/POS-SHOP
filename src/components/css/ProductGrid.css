@@ -1,0 +1,101 @@
+.product-page {
+    display: flex;
+    flex-direction: row;
+    height: 90vh;
+  }
+  
+  .sidebar {
+    width: 200px;
+    /* padding: 10px; */
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    justify-content: flex-start;
+    /* position: relative; */
+    height: 100%;
+  }
+  
+  .category-title {
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 12px 0 4px 8px;
+  }
+  
+  .product-grid {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+  }
+  
+  .product-cell {
+    background-color: #f6f6f6;
+    height: 3.5rem;
+    margin: 5px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+  }
+  
+  .bottom-cart {
+    margin-top: auto;
+    background-color: var(--ion-color-primary);
+    color: white;
+  }
+  
+
+  .btn-blue-outeline{
+    padding: .7rem ;
+    background-color:var( --ion-color-primary-tint);
+    border-radius: var(--ion-radius); 
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border: .5px solid  #C2D4E1;
+    margin-left: -1rem;
+    width: 115%;
+    /* position: absolute; */
+    transition-duration: 200ms;
+
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 999 !important;
+ 
+  }
+  .btn-blue-outeline:hover , .btn-light-outeline.active:hover{
+    background-color: var(--ion-color-primary-shade);
+  }
+  .ripple-parent {
+    position: relative;
+    overflow: hidden;
+  
+    border: 1px solid #ddd;
+  } 
+
+  .btn-light-outeline{
+    padding: .7rem ;
+    background-color:var( --ion-color-light);
+    border-radius: var(--ion-radius); 
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border: .5px solid  #C2D4E1;
+    margin-left: -1rem;
+    width: 115%;
+    /* position: absolute; */
+    transition-duration: 200ms;
+
+    display: flex;
+    flex-wrap: wrap; 
+    z-index: 999 !important; 
+  }
+  .btn-light-outeline:hover{
+    background-color: var(--ion-color-primary-tint);
+  }
+  .btn-light-outeline.active{
+    border-color: var(--ion-color-primary);
+    background-color: var(--ion-color-primary-tint);
+  }

@@ -1,2 +1,84 @@
 /* For information on how to create your own theme, please see:
 http://ionicframework.com/docs/theming/ */
+
+@font-face {
+  font-family: 'LineSeedTH';
+  src: url('./assets/fonts/LineSeedTH/LINESeedSansTH_W_Rg.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LineSeedTHBold';
+  src: url('assets/fonts/LineSeedTH/LINESeedSansTH_W_Bd.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LineSeedTHBolder';
+  src: url('assets/fonts/LineSeedTH/LINESeedSansTH_W_He.woff2') format('woff2');
+  font-weight: bolder;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LineSeedEN';
+  src: url('assets/fonts/LineSeedEN/LINESeedSans_W_Rg.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LineSeedENBold';
+  src: url('assets/fonts/LineSeedEN/LINESeedSans_W_Bd.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LineSeedENBolder';
+  src: url('assets/fonts/LineSeedEN/LINESeedSans_W_He.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.line-seed , label , ion-label , ion-text, p , u , ion-button {
+  font-family: 'LineSeedEN' , 'LineSeedTH', sans-serif !important;
+}
+.line-seed.bold , b ,strong{ 
+  font-family: 'LineSeedENBold' , 'LineSeedTHBold', sans-serif !important;
+}
+.line-seed.bold{ 
+  font-family: 'LineSeedENBolder' , 'LineSeedTHBolder', sans-serif;
+}
+body ,html{ 
+  font-family: 'LineSeedEN' , 'LineSeedTH', sans-serif !important;
+} 
+ion-content, ion-page , #root{
+  background-color: #F6F8F9;
+}
+ .content-padding{
+  height: 90vh ;
+  padding-top: 10vh 
+ }
+ .set-center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
+:root{  
+  --ion-radius: 10px;
+
+  --ion-color-primary: #7EA8DE;
+  --ion-color-primary-rgb: 126, 168, 222;
+  --ion-color-primary-tint: #EEF3FB;
+  --ion-color-primary-shade: #C2D4E1;
+
+
+  --ion-color-light: #ffffff;
+  --ion-color-light-rgb: 255,255,255;
+  --ion-color-light-tint: #fefefe;
+  --ion-color-light-shade: #f3f3f3;
+
+  --ion-color-secondary: #DDE3EC;
+  --ion-color-secondary-rgb: 221 227 236;
+  --ion-color-secondary-tint: #E9EEF5;
+  --ion-color-secondary-shade: #B9C9DC;
+}

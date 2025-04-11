@@ -1,0 +1,16 @@
+.border{
+    border-width: .5px;
+    border-color: #1d1d1d;
+}
+.border.top{ 
+    border-top: solid;
+}
+.border.bottom{ 
+    border-bottom: solid;
+}
+.border.left{ 
+    border-left: solid;
+}
+.border.right{ 
+    border-right: solid;
+}
