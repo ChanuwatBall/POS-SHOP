@@ -71,13 +71,13 @@ const ReceiptProducts: React.FC<ReceiptProductsProps> = ({productsSelected,editC
           <IonContent>
              <IonGrid className='ion-margin' >
                <IonRow>
-                 <IonCol size='4' className='set-ceter'  >
+                 <IonCol size='4' className='ion-justify-content-center' style={{display:"flex"}} >
                   <IonButton mode='ios'> <IonIcon icon={removeOutline} /> </IonButton>
                  </IonCol>
-                 <IonCol size='4'  className='ion-text-center' >
-                    {productEdit?.count}
+                 <IonCol size='4' className='ion-justify-content-center' style={{display:"flex"}} >
+                    <IonLabel className='ine-seed bolder' style={{fontSize:"2rem"}} >{productEdit?.count}</IonLabel>
                  </IonCol>
-                 <IonCol size='4' className='set-ceter'>
+                 <IonCol size='4' className='ion-justify-content-center' style={{display:"flex"}}>
                   <IonButton mode='ios'> <IonIcon icon={addOutline} /> </IonButton>
                  </IonCol>
                </IonRow>

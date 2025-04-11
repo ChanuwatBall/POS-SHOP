@@ -44,7 +44,7 @@ http://ionicframework.com/docs/theming/ */
 .line-seed.bold , b ,strong{ 
   font-family: 'LineSeedENBold' , 'LineSeedTHBold', sans-serif !important;
 }
-.line-seed.bold{ 
+.line-seed.bolder{ 
   font-family: 'LineSeedENBolder' , 'LineSeedTHBolder', sans-serif;
 }
 body ,html{ 
