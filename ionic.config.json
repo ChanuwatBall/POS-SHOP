@@ -1,0 +1,7 @@
+{
+  "name": "POS-SHOP",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
