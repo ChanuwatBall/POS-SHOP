@@ -8,16 +8,20 @@ interface CalculatorKeypadProps {
     input : Number 
     setInput:(e:any)=> Number | any
     clearInput:()=> void
+    backspce:(e:any)=>  any
 }
-const CalculatorKeypad: React.FC<CalculatorKeypadProps> = ({input,setInput,clearInput}:any) => {
+const CalculatorKeypad: React.FC<CalculatorKeypadProps> = ({input,setInput,clearInput,backspce}:any) => {
 //   const [input, setInput] = useState('');
 
   const handleClick = (value: string) => {
     return setInput(value);
   };
 
-  const handleBackspace = () => {
-   return  setInput((prev:any) => prev.slice(0, -1));
+  const handleBackspace = () => { 
+    console.log("input ", typeof input , input)
+     const last =  input.slice(0, -1) // setInput((prev:any) =>);
+     console.log("last ",last) 
+     return  backspce(last) 
   };
 
   const buttons = [
@@ -32,7 +36,7 @@ const CalculatorKeypad: React.FC<CalculatorKeypadProps> = ({input,setInput,clear
     if (value === '⌫') {
       return (
       <div  className='calculator-button' > 
-        <IonButton expand="block" mode='ios' fill='clear'  onClick={handleBackspace}>
+        <IonButton expand="block" mode='ios' fill='clear'  onClick={()=>{  handleBackspace()}}>
           <IonIcon icon={backspace} />
         </IonButton>
        </div>
@@ -41,7 +45,7 @@ const CalculatorKeypad: React.FC<CalculatorKeypadProps> = ({input,setInput,clear
     if (value === '.') {
         return (
         <div  className='calculator-button' > 
-          <IonButton disabled expand="block" mode='ios' fill='clear'  onClick={handleBackspace}>
+          <IonButton disabled expand="block" mode='ios' fill='clear'  >
              {value}
           </IonButton>
          </div>

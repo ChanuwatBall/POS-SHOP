@@ -50,6 +50,11 @@ http://ionicframework.com/docs/theming/ */
 body ,html{ 
   font-family: 'LineSeedEN' , 'LineSeedTH', sans-serif !important;
 } 
+ 
+ion-inpu{
+  color: black !important;
+  --color: black !important;
+}
 ion-content, ion-page , #root{
   background-color: #F6F8F9;
 }

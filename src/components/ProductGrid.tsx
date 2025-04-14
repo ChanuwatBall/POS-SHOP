@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IonPage,
   IonContent,
@@ -9,6 +9,7 @@ import {
   IonCol,
   IonLabel,
   IonRippleEffect,
+  IonSpinner,
 } from "@ionic/react";
 import "./css/ProductGrid.css";
 
@@ -27,32 +28,32 @@ const categories=[
     {id:4 , title:"วัสดุและอุปกรณ์ก่อสร้าง"}
 ]
  
-const productsCats=[ 
+const productsCats:any[]=[ 
   {
     id:1 , 
     title:"สินค้าแนะนำ" ,
     products:[
-      { id: 23 ,name:"Soap" ,unitPrice: 18.00 },
-      { id: 43 ,name:"ยาสีฟัน",unitPrice: 59.00 },
-      { id: 67 ,name:"แปลงสีฟัน" ,unitPrice: 15.00 }, 
-      { id: 40 ,name:"ดินสอ"  ,unitPrice: 8.00 },
-      { id: 32 ,name:"สมุด"  ,unitPrice: 12.00 },
+      { id: 23 ,name:"Soap" ,unitPrice: 18.00 , instock: 20},
+      { id: 43 ,name:"ยาสีฟัน",unitPrice: 59.00  , instock: 20},
+      { id: 67 ,name:"แปรงสีฟัน" ,unitPrice: 15.00  , instock: 20}, 
+      { id: 40 ,name:"ดินสอ"  ,unitPrice: 8.00  , instock: 20},
+      { id: 32 ,name:"สมุด"  ,unitPrice: 12.00  , instock: 20},
     ]
   },
   {
     id:2 , 
     title:"อุปโภค บริโภค" ,
     products:[ 
-      { id: 23 ,name:"Soap" ,unitPrice: 18.00 },
-      { id: 43 ,name:"ยาสีฟัน",unitPrice: 59.00 },
-      { id: 67 ,name:"แปลงสีฟัน" ,unitPrice: 15.00 }, 
+      { id: 23 ,name:"Soap" ,unitPrice: 18.00  , instock: 20},
+      { id: 43 ,name:"ยาสีฟัน",unitPrice: 59.00  , instock: 20},
+      { id: 67 ,name:"แปรงสีฟัน" ,unitPrice: 15.00  , instock: 20}, 
     ]
   },
   { id:3 ,
     title:"เครื่องเขียน" ,
     products:[ 
-      { id: 40 ,name:"ดินสอ"  ,unitPrice: 8.00 },
-      { id: 32 ,name:"สมุด"  ,unitPrice: 12.00 },
+      { id: 40 ,name:"ดินสอ"  ,unitPrice: 8.00  , instock: 20},
+      { id: 32 ,name:"สมุด"  ,unitPrice: 12.00  , instock: 20},
     ]
   },
   {
@@ -69,30 +70,19 @@ interface ProductGridProps {
 const ProductGrid: React.FC<ProductGridProps> = ({choose}) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("สินค้าแนะนำ");
   const [category,setCatagories] = useState({id:1 , title:"สินค้าแนะนำ"})
-  const [productsCat,setProducsCat] = useState([ 
-    {
-      id:1 , 
-      title:"สินค้าแนะนำ" ,
-      products:[
-        { id: 23 ,name:"Soap" ,unitPrice: 18.00 },
-        { id: 43 ,name:"ยาสีฟัน",unitPrice: 59.00 },
-        { id: 67 ,name:"แปลงสีฟัน" ,unitPrice: 15.00 }, 
-        { id: 40 ,name:"ดินสอ"  ,unitPrice: 8.00 },
-        { id: 32 ,name:"สมุด"  ,unitPrice: 12.00 },
-      ]
-    }])
+  const [productsCat,setProducsCat] = useState<any[]>([])
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
   };
 
   const renderProductGrid = () => { 
-    return productsCat[0].products.map((p, i) => (
+    return productsCat.length > 0 && productsCat[0].products.map((p:any, i:any) => (
       <IonCol 
-       size="2.5" key={i} 
-       className="product-cell"
+       sizeMd="3" sizeSm="4" sizeXs="4"  key={i} 
+      
        onClick={()=>{return choose(p)}}
-      >{p?.name}</IonCol>
+      > <div  className="product-cell" > {p?.name}</div></IonCol>
     ));
   };
 
@@ -101,20 +91,26 @@ const ProductGrid: React.FC<ProductGridProps> = ({choose}) => {
     setCatagories(e)
     setProducsCat(productsCats.filter((cat)=>cat?.id === e?.id))
   }
+  useEffect(()=>{ 
+    setTimeout(()=>{
+      searchProductFromCat({id:1 , title:"สินค้าแนะนำ"})
+    },200)
+  },[])
 
   return ( 
       <div className="product-page">
         <IonGrid>
           <IonRow>
-            <IonCol   size="3"  >
+            <IonCol   size="3"  className="ion-hide-sm-down"  >
               <div className="ion-hide-md-down" style={{height:"90vh"}}>
                 <SideBar setCatagories={(e:any)=>searchProductFromCat(e)} category={category} />
               </div>
             </IonCol> 
-            <IonCol  style={{paddingLeft:"1rem"}} >
-              <IonGrid>
-                <IonRow>{renderProductGrid()}</IonRow>
-              </IonGrid>
+            <IonCol   className="ion-no-padding"  style={{paddingLeft:"1rem"}}> 
+              {productsCat.length === 0 && <div className="set-center" style={{height:"100%"}}  >
+               <IonSpinner name="circles" /> 
+              </div>} 
+              <IonRow>{renderProductGrid()}</IonRow> 
             </IonCol>
           </IonRow>
         </IonGrid> 

@@ -40,10 +40,10 @@ const Home: React.FC = () => {
       <IonContent   >   
           <div className='content-padding' style={{}}>
             <IonRow  style={{height:"100%"}} >
-              <IonCol size='8' >
+              <IonCol sizeXs='12' sizeMd='8' >
                 <ProductGrid choose={async (product) => choose(product)} />
               </IonCol>
-              <IonCol size='4' >
+              <IonCol sizeXs='12' sizeMd='4' >
                  <ReceiptProducts productsSelected={productsSelected} editCount={true} /> 
                  <div className='ion-padding-horizontal' style={{width:"100%",backgroundColor:"#FFF"}} >
                 

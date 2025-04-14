@@ -15,6 +15,8 @@ import {
   IonContent,
   IonToolbar,
   IonIcon,
+  useIonAlert,
+  IonButtons,
 } from '@ionic/react'; 
 import { OverlayEventDetail } from '@ionic/core/components';
 import { addOutline, removeOutline } from 'ionicons/icons';
@@ -29,9 +31,11 @@ const ReceiptProducts: React.FC<ReceiptProductsProps> = ({productsSelected,editC
   const input = useRef<HTMLIonInputElement>(null);
   const [open ,setOpen] = useState(false)
   const [productEdit,setProductEdit] = useState<any>()
+  const [productEditCount,setProductEditCount] = useState<any>(0) 
+  const [alertRemove] = useIonAlert();
+  const [alertLimitStock] = useIonAlert();
 
-   useEffect(()=>{
-    console.log("productsSelected ",productsSelected)
+   useEffect(()=>{ 
      if(productsSelected.length > 0){
       let echProductPrice = 0
       productsSelected.map((e)=>{
@@ -45,16 +49,64 @@ const ReceiptProducts: React.FC<ReceiptProductsProps> = ({productsSelected,editC
     if(editCount){
       setOpen(true)
       setProductEdit(product)
+      setProductEditCount(product?.count)
     }
    }
 
   function confirm() {
-    modal.current?.dismiss(input.current?.value, 'confirm');
-  }
+    // modal.current?.dismiss(input.current?.value, 'confirm');
+    
+  } 
 
   function onWillDismiss(event: CustomEvent<OverlayEventDetail>) {
     if (event.detail.role === 'confirm') {
       // setMessage(`Hello, ${event.detail.data}!`);
+    }
+  }
+
+  const addCount=()=>{ 
+    if(productEditCount < productEdit?.instock){
+      setProductEditCount((e:any)=> e += 1) 
+    }else{
+      alertLimitStock({
+        header:"สินค้าในสต๊อคไม่เพียงพอ ?" , 
+        mode:"ios",
+        buttons:[
+          {
+            text: 'ยืนยัน',
+            role: 'confirm',
+            handler: () => {
+              console.log('Alert confirmed');
+            },
+          },
+        ]
+      })
+    }
+  }
+  const delCount=()=>{
+    if(productEditCount > 1){
+      setProductEditCount((e:any)=> e -= 1)
+    }else{
+      alertRemove({
+        header:"ต้องการนำรายการสินค้าออก ?" , 
+        mode:"ios",
+        buttons:[
+          {
+            text: 'ยกเลิก',
+            role: 'cancel',
+            handler: () => {
+              console.log('Alert canceled');
+            },
+          },
+          {
+            text: 'ยืนยัน',
+            role: 'confirm',
+            handler: () => {
+              console.log('Alert confirmed');
+            },
+          },
+        ]
+      })
     }
   }
 
@@ -70,19 +122,31 @@ const ReceiptProducts: React.FC<ReceiptProductsProps> = ({productsSelected,editC
           </IonHeader>
           <IonContent>
              <IonGrid className='ion-margin' >
+              <IonRow>
+                <IonCol size='12' ><IonLabel> ชื่อสินค้า: {productEdit?.name}</IonLabel></IonCol>
+                <IonCol size='12' > <IonLabel>ราคาต่อหน่วย: {productEdit?.unitPrice} บาท</IonLabel></IonCol>
+                <IonCol size='12' > <IonLabel>จำนวนคงเหลือ: {productEdit?.instock - productEditCount}</IonLabel>  </IonCol>
+              </IonRow>
                <IonRow>
+                 <IonCol size='12' ><IonLabel>จำนวน:</IonLabel> </IonCol>
                  <IonCol size='4' className='ion-justify-content-center' style={{display:"flex"}} >
-                  <IonButton mode='ios'> <IonIcon icon={removeOutline} /> </IonButton>
+                  <IonButton mode='ios'  onClick={delCount}> <IonIcon icon={removeOutline} /> </IonButton>
                  </IonCol>
                  <IonCol size='4' className='ion-justify-content-center' style={{display:"flex"}} >
-                    <IonLabel className='ine-seed bolder' style={{fontSize:"2rem"}} >{productEdit?.count}</IonLabel>
+                    <IonLabel className='line-seed bolder' style={{fontSize:"2rem"}} >{productEditCount}</IonLabel>
                  </IonCol>
                  <IonCol size='4' className='ion-justify-content-center' style={{display:"flex"}}>
-                  <IonButton mode='ios'> <IonIcon icon={addOutline} /> </IonButton>
+                  <IonButton mode='ios' onClick={addCount}> <IonIcon icon={addOutline} /> </IonButton>
                  </IonCol>
                </IonRow>
              </IonGrid>
           </IonContent>
+          <IonFooter className='ion-padding' >
+             <IonButtons className='set-center' style={{flexDirection:"row" , justifyContent:"flex-end"}} >
+                <IonButton color={"danger"} onClick={()=>setOpen(false)}> ยกเลิก </IonButton> &nbsp;
+                <IonButton onClick={()=>{confirm()}} > ตกลง </IonButton>
+             </IonButtons>
+          </IonFooter>
         </IonModal>
 
         <IonCard mode='ios' className='line-seed'>
@@ -108,7 +172,9 @@ const ReceiptProducts: React.FC<ReceiptProductsProps> = ({productsSelected,editC
             <IonGrid className='ion-padding-horizontal' > 
                 {
                     productsSelected.map((e:any,index:any)=>
-                    <IonRow key={index} style={{borderBottom:"1px dashed #ccc"}} onClick={()=>{editProdunctCount(e,index)}}>
+                    <IonRow key={index} 
+                    style={{borderBottom:"1px dashed #ccc"}} 
+                    onClick={()=>{editProdunctCount(e,index)}}>
                         <IonCol><IonText>{index+1}. {e?.name}</IonText></IonCol>
                         <IonCol size="3" className='ion-text-center' ><IonText>{e?.unitPrice}</IonText></IonCol> 
                         <IonCol size="3" className='ion-text-center'><IonText>{e?.unitPrice * e?.count}  <small>x{e?.count}</small></IonText></IonCol>

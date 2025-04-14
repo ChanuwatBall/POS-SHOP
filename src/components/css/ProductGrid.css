@@ -1,11 +1,11 @@
 .product-page {
     display: flex;
     flex-direction: row;
-    height: 90vh;
+    height: 90vh; 
   }
   
   .sidebar {
-    width: 200px;
+    width: 100%;
     /* padding: 10px; */
     border-right: 1px solid #ddd;
     display: flex;
@@ -30,9 +30,8 @@
   
   .product-cell {
     background-color: #f6f6f6;
-    height: 3.5rem;
-    margin: 5px;
-    border-radius: 8px;
+    height: 3.5rem; 
+    border-radius: 8px; 
     border: 1px solid #eee;
     display: flex;
     flex-direction: column;
@@ -98,4 +97,13 @@
   .btn-light-outeline.active{
     border-color: var(--ion-color-primary);
     background-color: var(--ion-color-primary-tint);
+  }
+
+
+
+  @media only screen and (max-width: 600px) {
+
+    .product-page { 
+      height: fit-content;
+    }
   }

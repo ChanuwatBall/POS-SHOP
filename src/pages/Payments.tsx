@@ -1,7 +1,7 @@
 import { IonButton, IonCol, IonContent, IonInput, IonLabel, IonPage, IonRow, IonText } from "@ionic/react"
 import "./css/Payment.css"
 import { useHistory } from "react-router"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import ReceiptProducts from "../components/ReceiptProducts"
 import ButtonGroup from "../components/ButtonGroup"
 import CalculatorKeypad from "../components/CalculatorKeypad"
@@ -13,6 +13,7 @@ const Payment:React.FC=()=>{
     const [cash ,setCash] = useState<any>(0)
     const [change ,setChange] = useState<any>(0)
 
+    const cashInputRef = useRef<any>(null);
     useEffect(()=>{  
         setProductSelected(history.location.state?.productsSelected)
         if(history.location.state?.productsSelected){
@@ -22,20 +23,45 @@ const Payment:React.FC=()=>{
             })
             setSum((echProductPrice).toFixed(2))
         }
+        focusCash()
     },[productsSelected])
+    const focusCash=()=>{
+      const inputEl = cashInputRef.current;
+      setTimeout(() => inputEl.setFocus(), 100);
+      setTimeout(async () => {
+        const nativeInput = await inputEl.getInputElement();
+        const length = nativeInput.value?.length || 0;
+        nativeInput.setSelectionRange(length, length); // Move cursor to end
+      }, 50); 
+    }
 
     const countCash=(receiptcash:any)=>{
-      let lastcash = Number(cash) + receiptcash;
+      let lastcash = Number(cash) + Number(receiptcash);
       console.log(`countCash lastcash ${lastcash}` )
-      let newcash = lastcash.toFixed(2)
+      let newcash = lastcash
       setCash(newcash)
       const c = lastcash - Number(sum)
       console.log(`countCash ${lastcash} - ${sum} = ${lastcash - Number(sum)}`)
       setChange(c.toFixed(2))
+      focusCash()
+    }
+
+    const backspceCount=(left:any)=>{
+      let lastcash = Number(left);
+      console.log(`countCash lastcash ${lastcash}` )
+      let newcash = lastcash
+      setCash(newcash)
+      const c = lastcash - Number(sum)
+      console.log(`countCash ${lastcash} - ${sum} = ${lastcash - Number(sum)}`)
+      setChange(c.toFixed(2))
+      if(lastcash === 0){
+        setChange("0.00")
+      } 
+      focusCash()
     }
 
     const clearInput=()=>{
-      setCash("0.0")
+      setCash("0")
       setChange("0.0")
     }
  
@@ -69,10 +95,10 @@ const Payment:React.FC=()=>{
               <div className="  " style={{width:"100%",paddingTop:"1rem" }} >
                 <div className="input-cash" >
                     <IonLabel>เงินสด</IonLabel>
-                    <IonInput 
+                    <IonInput  ref={cashInputRef}
                       mode="ios" 
                       placeholder="0.0" 
-                      value={cash}
+                      value={cash} autoFocus
                       onIonChange={(e:any)=>{ setCash(e.detail.value) }}
                     > 
                     </IonInput>
@@ -88,11 +114,23 @@ const Payment:React.FC=()=>{
                     </IonInput>
                  </div>
                  <CalculatorKeypad 
-                  input={Number(cash)} 
-                  setInput={(e:any)=>{countCash(Number(e))}} 
+                  input={cash.toString()} 
+                  setInput={(e:any)=>{ countCash(e);focusCash()}} 
+                  backspce={(e:any)=>{backspceCount(e);console.log("e" , e)}}
                   clearInput={()=>{clearInput()}}
                   />
-
+                  <IonRow  style={{ width:"20rem"}}>
+                    <IonCol size="6">  
+                      <IonButton mode="ios" expand="block"  color={"secondary"} >
+                       <IonLabel color={"dark"}> ส่วนลด </IonLabel>
+                      </IonButton> 
+                    </IonCol>
+                    <IonCol size="6"> 
+                      <IonButton mode="ios"  expand="block"  color={"primary"} >
+                       <IonLabel> ชำระเงิน </IonLabel>
+                      </IonButton> 
+                    </IonCol>
+                  </IonRow>
                 </div>
               </IonCol>
             </IonRow>
