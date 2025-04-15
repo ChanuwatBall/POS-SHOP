@@ -5,18 +5,21 @@ import { useEffect, useRef, useState } from "react"
 import ReceiptProducts from "../components/ReceiptProducts"
 import ButtonGroup from "../components/ButtonGroup"
 import CalculatorKeypad from "../components/CalculatorKeypad"
+import { useDispatch, useSelector } from "react-redux"
+import { getProductReceipt, setProductReceipt, setReceiptTotal } from "../store/recieptsSlice"
 
 const Payment:React.FC=()=>{
-    const [productsSelected,setProductSelected] = useState<any[]>([])
+    const productsSelected:any[] = useSelector(getProductReceipt)
+    const dispatch = useDispatch() 
     const history:any = useHistory()
     const [sum,setSum] = useState("0.00")
     const [cash ,setCash] = useState<any>(0)
     const [change ,setChange] = useState<any>(0)
 
+    
     const cashInputRef = useRef<any>(null);
-    useEffect(()=>{  
-        setProductSelected(history.location.state?.productsSelected)
-        if(history.location.state?.productsSelected){
+    useEffect(()=>{   
+        if(productsSelected){
             let echProductPrice = 0
             productsSelected.map((e)=>{
               echProductPrice += e?.unitPrice * e?.count
@@ -63,6 +66,12 @@ const Payment:React.FC=()=>{
     const clearInput=()=>{
       setCash("0")
       setChange("0.0")
+    }
+
+    const paynow=()=>{
+      dispatch(setProductReceipt([]))
+      dispatch(setReceiptTotal( "0.00"))
+      history.replace("/")
     }
  
     return(
@@ -126,7 +135,7 @@ const Payment:React.FC=()=>{
                       </IonButton> 
                     </IonCol>
                     <IonCol size="6"> 
-                      <IonButton mode="ios"  expand="block"  color={"primary"} >
+                      <IonButton mode="ios"  expand="block"  color={"primary"}onClick={()=>paynow()}  >
                        <IonLabel> ชำระเงิน </IonLabel>
                       </IonButton> 
                     </IonCol>

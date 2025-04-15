@@ -6,12 +6,15 @@ import ProductGrid from '../components/ProductGrid';
 import Menu from '../components/Menu';
 import ReceiptProducts from '../components/ReceiptProducts';
 import { useHistory } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductReceipt, getReceiptTotal, setProductReceipt } from '../store/recieptsSlice';
 
 interface productsSelectedProps {
   id: Number ,name: String , count: any , unitPrice: Number
 }
-const Home: React.FC = () => {
-  const [productsSelected,setProductSelected] = useState<any[]>([])
+const Home: React.FC = () => { 
+  const productsSelected:any[] = useSelector(getProductReceipt) 
+  const dispatch = useDispatch();
   const history = useHistory()
   
   useEffect(()=>{ },[productsSelected])
@@ -29,10 +32,13 @@ const Home: React.FC = () => {
         ...productsSelected.slice(indexs + 1)
       ];
  
-      setProductSelected(productsSelectedUpdate)
+      // setProductSelected(productsSelectedUpdate)
+      dispatch(setProductReceipt(productsSelectedUpdate))
+
     }else{
       const productsSelectedUpdate = [...productsSelected,  {  ...product, ...{count:1 }} ] 
-      setProductSelected(productsSelectedUpdate)
+      // setProductSelected(productsSelectedUpdate)
+      dispatch(setProductReceipt(productsSelectedUpdate))
     }
   }
   return (
@@ -51,7 +57,7 @@ const Home: React.FC = () => {
                     mode='ios' 
                     expand='block' 
                     onClick={()=>{
-                      history.push("/payment",{productsSelected:productsSelected} )
+                      history.push("/payment" )
                     }}
                     >
                         <strong>ชำระเงิน</strong>

@@ -10,8 +10,21 @@ import {
   IonLabel,
   IonRippleEffect,
   IonSpinner,
+  IonBadge,
+  IonIcon,
+  IonModal,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonList,
+  IonItem,
 } from "@ionic/react";
 import "./css/ProductGrid.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getBreakBill, getProductReceipt, setBreakBill, setProductReceipt, setReceiptTotal } from "../store/recieptsSlice";
+import { BreakBill } from "../types/statetypes";
+import moment from "moment";
+import { timeOutline } from "ionicons/icons";
 
 const category = [
   "สินค้าแนะนำ",
@@ -121,15 +134,64 @@ const ProductGrid: React.FC<ProductGridProps> = ({choose}) => {
 export default ProductGrid;
 
 export const SideBar=({setCatagories,category}:any)=>{
+  const dispatch = useDispatch()
+  const breakbills:BreakBill[] = useSelector(getBreakBill)
+  const productsSelected:any[] = useSelector(getProductReceipt)
+  const currentRep = useSelector(getProductReceipt)
+  const [openmodal ,setOpenModal] = useState(false)
+   
+
+  const createBreakBill=async()=>{
+    console.log(" productsSelected size ",productsSelected.length)
+    // if(productsSelected.length > 0){
+    //  alert("ไม่สามารถเรียกบิลกับได้")
+    // }else{
+      let echProductPrice = 0
+      await currentRep.map((e)=>{
+        echProductPrice += e?.unitPrice * e?.count
+      })
+      let newbrekbill:BreakBill | null = {
+        products:  currentRep ,  create: moment().format() ,  total: echProductPrice 
+      }
+      dispatch(setBreakBill([...breakbills ,newbrekbill]))
+      setTimeout(()=>{
+        dispatch(setProductReceipt([]))
+        dispatch(setReceiptTotal( "0.00"))
+      },300)
+    //}
+  }
+  const callBillBack=(bill:BreakBill,index:any)=>{  
+      dispatch(setProductReceipt(bill?.products))
+      dispatch(setReceiptTotal( bill?.total))
+      let removeBreakBill = breakbills.filter(e=> e != bill)
+      dispatch(setBreakBill( removeBreakBill )) 
+
+      setOpenModal(false)
+  }
+  const callBillModal=()=>{
+    if(productsSelected.length > 0){
+     alert("ไม่สามารถเรียกบิลกับได้")
+    }else{
+      setOpenModal(true)
+    }
+  }
+
   return(
     <div className="sidebar">
-          <button className="btn-blue-outeline ion-activatable ripple-parent" >
+          <button className="btn-blue-outeline ion-activatable ripple-parent" onClick={()=>{createBreakBill()}}>
             <IonLabel>พักบิล</IonLabel>
             <IonRippleEffect></IonRippleEffect>
           </button>
-          <button className="btn-blue-outeline  ion-activatable ripple-parent" >
+          <button className="btn-blue-outeline  ion-activatable ripple-parent" style={{position:"relative"}} 
+          onClick={()=>callBillModal() }>
             <IonLabel>เรียกบิลกลับ</IonLabel>
             <IonRippleEffect></IonRippleEffect>
+            {breakbills.length > 0 && 
+            <IonBadge mode="ios"  color={"danger"}
+              style={{position:"absolute", right:"0px" ,top:"0px", }}> 
+               <IonLabel className="set-center" style={{flexDirection:"row"}}>
+                {breakbills?.length} &nbsp; <IonIcon icon={timeOutline} /> </IonLabel>
+            </IonBadge>}
           </button>
           
 
@@ -146,6 +208,27 @@ export const SideBar=({setCatagories,category}:any)=>{
           ))}
           <br/>
           <IonButton expand="block" mode="ios"  >ตะกร้า</IonButton>
-        </div>
+
+          <IonModal isOpen={openmodal} mode="ios" onIonModalDidDismiss={()=>{setOpenModal(false)}} >
+            <IonHeader mode="ios" >
+              <IonToolbar>
+                 <IonTitle className="line-seed bold">เรียกบิลกลับ</IonTitle>
+              </IonToolbar>
+            </IonHeader>
+            <IonContent>
+              <IonList>
+                {
+                  breakbills.map((bill:BreakBill,index:any)=>
+                   <IonItem key={index} mode="ios" button onClick={()=>{callBillBack(bill,index)}}>
+                      <IonLabel>{moment(bill?.create).format("DD/MMM/YYYY  HH:mm")}</IonLabel>
+                      <IonLabel slot="end" >  {bill?.total.toFixed(2)} บาท</IonLabel>
+                   </IonItem>
+                  )
+                }
+              </IonList>
+            </IonContent>
+          </IonModal>
+   </div>
   )
 }
+ 

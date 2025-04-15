@@ -20,13 +20,18 @@ import {
 } from '@ionic/react'; 
 import { OverlayEventDetail } from '@ionic/core/components';
 import { addOutline, removeOutline } from 'ionicons/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductReceipt, getReceiptTotal, setReceiptTotal } from '../store/recieptsSlice';
 
 interface ReceiptProductsProps { 
     productsSelected:any[]
     editCount: Boolean
 }
-const ReceiptProducts: React.FC<ReceiptProductsProps> = ({productsSelected,editCount}) => {
-  const [sum,setSum] = useState("0.00") 
+const ReceiptProducts: React.FC<ReceiptProductsProps> = ({editCount}) => {
+  // const [sum,setSum] = useState("0.00") 
+  const productsSelected:any[] = useSelector(getProductReceipt)
+  const sum = useSelector(getReceiptTotal)
+  const dispatch = useDispatch()
   const modal = useRef<HTMLIonModalElement>(null);
   const input = useRef<HTMLIonInputElement>(null);
   const [open ,setOpen] = useState(false)
@@ -41,7 +46,8 @@ const ReceiptProducts: React.FC<ReceiptProductsProps> = ({productsSelected,editC
       productsSelected.map((e)=>{
         echProductPrice += e?.unitPrice * e?.count
       })
-      setSum((echProductPrice).toFixed(2))
+      // setSum((echProductPrice).toFixed(2))
+      dispatch(setReceiptTotal((echProductPrice).toFixed(2)))
      }
    },[productsSelected])
 
@@ -55,7 +61,7 @@ const ReceiptProducts: React.FC<ReceiptProductsProps> = ({productsSelected,editC
 
   function confirm() {
     // modal.current?.dismiss(input.current?.value, 'confirm');
-    
+
   } 
 
   function onWillDismiss(event: CustomEvent<OverlayEventDetail>) {
