@@ -92,10 +92,9 @@ const ProductGrid: React.FC<ProductGridProps> = ({choose}) => {
   const renderProductGrid = () => { 
     return productsCat.length > 0 && productsCat[0].products.map((p:any, i:any) => (
       <IonCol 
-       sizeMd="3" sizeSm="4" sizeXs="4"  key={i} 
-      
+       sizeMd="3" sizeSm="4" sizeXs="4"  key={i}  
        onClick={()=>{return choose(p)}}
-      > <div  className="product-cell" > {p?.name}</div></IonCol>
+      > <button  className="product-cell line-seed " > <IonLabel className="cursor-pointer">{p?.name}</IonLabel></button></IonCol>
     ));
   };
 
@@ -143,9 +142,9 @@ export const SideBar=({setCatagories,category}:any)=>{
 
   const createBreakBill=async()=>{
     console.log(" productsSelected size ",productsSelected.length)
-    // if(productsSelected.length > 0){
-    //  alert("ไม่สามารถเรียกบิลกับได้")
-    // }else{
+    if(productsSelected.length == 0){
+       alert("ไม่สามารถพักบิลได้")
+    }else{
       let echProductPrice = 0
       await currentRep.map((e)=>{
         echProductPrice += e?.unitPrice * e?.count
@@ -158,7 +157,7 @@ export const SideBar=({setCatagories,category}:any)=>{
         dispatch(setProductReceipt([]))
         dispatch(setReceiptTotal( "0.00"))
       },300)
-    //}
+    }
   }
   const callBillBack=(bill:BreakBill,index:any)=>{  
       dispatch(setProductReceipt(bill?.products))
@@ -170,7 +169,7 @@ export const SideBar=({setCatagories,category}:any)=>{
   }
   const callBillModal=()=>{
     if(productsSelected.length > 0){
-     alert("ไม่สามารถเรียกบิลกับได้")
+     alert("ไม่สามารถเรียกบิลกลับได้")
     }else{
       setOpenModal(true)
     }

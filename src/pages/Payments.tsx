@@ -7,6 +7,8 @@ import ButtonGroup from "../components/ButtonGroup"
 import CalculatorKeypad from "../components/CalculatorKeypad"
 import { useDispatch, useSelector } from "react-redux"
 import { getProductReceipt, setProductReceipt, setReceiptTotal } from "../store/recieptsSlice"
+import { generateReceiptPdfMake } from "../utils/ReceiptPdfMake"
+import moment from "moment"
 
 const Payment:React.FC=()=>{
     const productsSelected:any[] = useSelector(getProductReceipt)
@@ -69,8 +71,17 @@ const Payment:React.FC=()=>{
     }
 
     const paynow=()=>{
+      generateReceiptPdfMake({
+        date: moment().format() ,
+        products: productsSelected ,
+        total: sum ,
+        cash: cash ,
+        change: change
+      })
+
       dispatch(setProductReceipt([]))
       dispatch(setReceiptTotal( "0.00"))
+      
       history.replace("/")
     }
  
