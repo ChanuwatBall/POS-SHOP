@@ -1,10 +1,12 @@
-import { IonBreadcrumb, IonBreadcrumbs, IonButton, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonRow } from "@ionic/react"
-import { construct, cube, home } from "ionicons/icons";
+import { IonBreadcrumb, IonBreadcrumbs, IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonRow } from "@ionic/react"
+import { addCircleOutline, close, closeCircle, construct, cube, home } from "ionicons/icons";
 import { useState } from "react";
 import ProductsTable from "../components/ProductsTable";
+import { useHistory } from "react-router";
 
 
 const Products:React.FC=()=>{
+    const history = useHistory()
     const [productView,setProductView] = useState<any>(null)
     const [products] = useState<any[]>([
         { id: 1, name: 'สินค้า A', unitPrice: 100, price: 100, instock: 10 , img: "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081" },
@@ -24,23 +26,25 @@ const Products:React.FC=()=>{
     return(
     <IonPage>
         <div className='content-padding' >
-        <IonHeader mode="ios" className="ion-border" >
-            <IonBreadcrumbs>
-                <IonBreadcrumb href="#home"> <IonIcon slot="start" icon={home}></IonIcon> Home</IonBreadcrumb>
-                <IonBreadcrumb href="#electronics">  <IonIcon slot="start" icon={cube}></IonIcon> Stock</IonBreadcrumb>
-                <IonBreadcrumb href="#cameras"><IonIcon slot="start" icon={construct}></IonIcon>  Products</IonBreadcrumb> 
-            </IonBreadcrumbs>
+        <IonHeader mode="ios" className="ion-border" > 
+            <IonButtons className="ion-margin-horizontal">
+                <IonButton onClick={()=>{history.push("/products/add")}} > <IonIcon icon={addCircleOutline} /> &nbsp; เพิ่มสินค้า </IonButton>
+                <IonButton> <IonIcon icon={addCircleOutline} /> &nbsp; เพิ่มหมวดหมู่ </IonButton>
+            </IonButtons>
         </IonHeader>
         <IonContent className="ion-padding" >
             <IonRow style={{height:"100%"}} >
                 <IonCol size="3" >
-                    <IonCard mode="ios">
+                    <IonCard mode="ios" style={{minHeight:"20rem"}} >
                         <IonGrid>
-                            <IonRow>
-                                <IonCol size="12" >
-                                    <div className="nput-cash" >  
+                            <IonRow >
+                                <IonCol size="12"  className="set-center" style={{flexDirection:"row" }} >
+                                    <div className="nput-cash" style={{border:"1px solid #ddd",borderRadius:"10px",width:"97%"}} >  
                                      <IonInput mode="ios" className="iput" placeholder="Search" > </IonInput>
                                     </div>
+                                    <IonButton fill="clear"  onClick={()=>{setProductView(null)}}>
+                                        <IonIcon icon={closeCircle} />
+                                    </IonButton>
                                 </IonCol>
                             </IonRow> 
                             <IonRow>

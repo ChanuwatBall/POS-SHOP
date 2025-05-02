@@ -15,8 +15,7 @@ const ProductsTable=({products,preview}:any)=>{
     const startIndex = (currentPage - 1) * itemsPerPage;
     const currentItems = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
   
-    return (  
-  
+    return (   
         <div className="ion-padding"> 
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}} >
           <IonSearchbar
@@ -42,7 +41,7 @@ const ProductsTable=({products,preview}:any)=>{
               <IonCol><strong>การจัดการ</strong></IonCol>
               <IonCol className="set-center"><strong>Barcode</strong></IonCol>
             </IonRow>
-
+            <div style={{width:"100%",height:"24rem",overflowY:"scroll"}} >
             {currentItems.map((product:any) => (
               <IonRow key={product.id} onClick={()=>{return preview(product)}} >
                 <IonCol size="1">{product.id}</IonCol>
@@ -57,6 +56,7 @@ const ProductsTable=({products,preview}:any)=>{
                 <IonCol className="set-center"> <IonIcon  icon={barcode} style={{fontSize:"1.5rem"}}/>  </IonCol>
               </IonRow>
             ))}
+             </div>
           </IonGrid>
   
           {/* Pagination */}

@@ -40,6 +40,7 @@ import Menu from './components/Menu';
 import Payment from './pages/Payments';
 import { Capacitor } from '@capacitor/core';
 import Products from './pages/Products';
+import Product from './pages/Product';
 
 setupIonicReact();
 
@@ -61,7 +62,8 @@ const App: React.FC = () =>{
         <Route exact path="/login" component={Login} /> 
         <Route exact path="/home" component={Home} /> 
         <Route exact path="/payment" component={Payment} /> 
-        <Route exact path="/stock" component={Products} /> 
+        <Route exact path="/products" component={Products} /> 
+        <Route exact path="/products/add" component={Product} /> 
 
 
         <Route exact path="/">

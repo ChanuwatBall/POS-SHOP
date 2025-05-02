@@ -19,7 +19,7 @@ const NavBar: React.FC = () => {
   const navItems = [
     { label: "หน้าแรก", path: "/home" },
     { label: "ชำระเงิน", path: "/payment" },
-    { label: "สินค้าและสต๊อก", path: "/stock" },
+    { label: "สินค้าและสต๊อก", path: "/products" },
     { label: "ประวัติใบเสร็จ", path: "/history" },
     { label: "รายงาน", path: "/report" },
     { label: "ตั้งค่า", path: "/settings" },
@@ -50,7 +50,7 @@ const NavBar: React.FC = () => {
        
         {navItems.map((item) => (
           <li onClick={()=>handleChange(item?.path)} className={selectedPath === item.path ?"active":"" } key={item.path} value={item.path}>
-            <IonLabel className={selectedPath === item.path ? "active-label " : ""}>
+            <IonLabel className={selectedPath.indexOf(item.path )  > -1 ? "active-label " : ""}>
               {item.label}
             </IonLabel>
           </li>
