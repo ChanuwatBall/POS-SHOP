@@ -41,7 +41,7 @@ http://ionicframework.com/docs/theming/ */
 .line-seed , label , ion-label , ion-text, p , u , ion-button {
   font-family: 'LineSeedEN' , 'LineSeedTH', sans-serif !important;
 }
-.line-seed.bold , b ,strong{ 
+.line-seed.bold , b ,strong,ion-title{ 
   font-family: 'LineSeedENBold' , 'LineSeedTHBold', sans-serif !important;
 }
 .line-seed.bolder{ 
