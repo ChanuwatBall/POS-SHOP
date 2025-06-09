@@ -36,18 +36,18 @@ const CalculatorKeypad: React.FC<CalculatorKeypadProps> = ({input,setInput,clear
     if (value === '⌫') {
       return (
       <div  className='calculator-button' > 
-        <IonButton expand="block" mode='ios' fill='clear'  onClick={()=>{  handleBackspace()}}>
+        <button    onClick={()=>{  handleBackspace()}}>
           <IonIcon icon={backspace} />
-        </IonButton>
+        </button>
        </div>
       );
     }
     if (value === '.') {
         return (
         <div  className='calculator-button' > 
-          <IonButton disabled expand="block" mode='ios' fill='clear'  >
+          <button disabled    >
              {value}
-          </IonButton>
+          </button>
          </div>
         );
     }
@@ -57,9 +57,9 @@ const CalculatorKeypad: React.FC<CalculatorKeypadProps> = ({input,setInput,clear
     if (value === 'AC') {
         return (
         <div  className='calculator-button ac' > 
-          <IonButton expand="block" mode='ios' color={"light"} fill='clear'  onClick={()=>{return clearInput()}}>
+          <button   onClick={()=>{return clearInput()}}>
              {value}
-          </IonButton>
+          </button>
          </div>
         );
     }
@@ -67,9 +67,9 @@ const CalculatorKeypad: React.FC<CalculatorKeypadProps> = ({input,setInput,clear
 
     return (
      <div  className='calculator-button' > 
-      <IonButton  expand="block" mode='ios' fill='clear' onClick={() => handleClick(value)}>
+      <button    onClick={() => handleClick(value)}>
         {value}
-      </IonButton>
+      </button>
       </div>
     );
   };

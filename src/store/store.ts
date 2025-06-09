@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import recieptReducer from "./recieptsSlice"
 import dashboardReducer from "./dashboardSlice";
+import  authSlice  from './authSlice';
 
 
 export const store = configureStore({  
   reducer: {
     receiptstate: recieptReducer,
     dashboardState: dashboardReducer,  
+    authstate: authSlice
   },
 })
 

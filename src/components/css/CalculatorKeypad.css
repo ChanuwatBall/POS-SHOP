@@ -1,6 +1,6 @@
 .calculator-button{
     background-color: #FFF;
-    border: 1px solid #DDD !important;
+    /* border: 1px solid #DDD !important; */
     border-radius: var(--ion-radius);
     box-shadow: 2px 1px 17px -10px rgba(0,0,0,0.09);
     -webkit-box-shadow: 2px 1px 17px -10px rgba(0,0,0,0.09);
@@ -9,4 +9,19 @@
 .calculator-button.ac{
     background-color: var(--ion-color-primary);
     border: none;
+}
+.calculator-button button{
+    width: 100%;
+    height: 3rem;
+    background-color: var(--ion-color-light);
+    border: none;
+    border: .5px solid #F9F9F9;
+    box-shadow: -2px 1px 19px -8px rgba(0,0,0,0.09);
+-webkit-box-shadow: -2px 1px 19px -8px rgba(0,0,0,0.09);
+-moz-box-shadow: -2px 1px 19px -8px rgba(0,0,0,0.09);
+border-radius: 10px;
+transition-duration: 200ms;
+}
+.calculator-button button:hover{
+    background-color: var(--ion-color-light-shade);
 }

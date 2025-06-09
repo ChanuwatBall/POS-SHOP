@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import { registerShop } from "../actions";
+import { registered, registerShop } from "../actions";
 import { useHistory } from "react-router";
 
 
@@ -25,7 +25,16 @@ const Register:React.FC=()=>{
     const [presentAlert] = useIonAlert();
 
     useEffect(()=>{
-
+        const checkSiteRegistered=async()=>{
+            const hostname = window.location.host
+            console.log("hostname ",hostname)
+            const is = await registered()
+            console.log("is  ",is)
+            if(is.result){
+                history.replace("/login")
+            }
+        }
+        checkSiteRegistered()
     },[ ])
 
     const registershop=async()=>{

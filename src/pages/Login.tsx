@@ -11,18 +11,22 @@ import {
 import './css/Login.css';
 import { useHistory } from 'react-router';
 import { useCookies } from 'react-cookie';
+import { useDispatch } from 'react-redux';
+import { setLogin } from '../store/authSlice';
 
 const Login: React.FC = () => {
    const [username , setUserName] = useState("test")
    const [password ,setPassword] = useState("testdev11")
    const history = useHistory()
    const [cookies, setCookie, removeCookie] = useCookies(['login']);
+   const dispatch = useDispatch()
 
    const submit=()=>{
     if(username !== "test" ||  password !== "testdev11" ){ 
       alert("ชื่อผูใช้ หรือรหัสผ่านไม่ถูกต้อง !!")
       
     }else{
+      dispatch(setLogin(username+":"+password))
       setCookie("login",username+":"+password )
       history.replace("/home") 
     }
@@ -30,7 +34,8 @@ const Login: React.FC = () => {
 
    useEffect(()=>{
     if(cookies?.login){
-      history.replace("/home")
+      history.replace("/home") 
+      setCookie("login",cookies?.login)
     }
    },[])
 

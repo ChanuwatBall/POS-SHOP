@@ -1,0 +1,10 @@
+.receipt-product{
+
+    height: 98vh;
+    background-color: #FFF;
+    border-radius: 10px;
+    border: 1px solid #DCDCDC;
+}
+.receipt-product ion-card{
+    box-shadow: none;
+}

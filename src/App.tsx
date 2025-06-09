@@ -1,7 +1,6 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonRouterOutlet, IonSplitPane, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -32,6 +31,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Home from './pages/Home';
 import Login from './pages/Login';
 import NavBar from './components/NavBar';
 import { useCookies } from 'react-cookie';
@@ -42,38 +42,81 @@ import { Capacitor } from '@capacitor/core';
 import Products from './pages/Products';
 import Product from './pages/Product';
 import Register from './pages/Register';
+import { home, settings } from 'ionicons/icons';
+import { useSelector } from 'react-redux';
+import { getLogin } from './store/authSlice';
+import { CheckLoginCookie } from './components/checkCookie';
+import MenuSplitContent from './pages/MenuSplit';
 
 setupIonicReact();
 
 const App: React.FC = () =>{
-  const [cookies, setCookie, removeCookie] = useCookies(['login']);
+  // const [cookies, setCookie, removeCookie] = useCookies(['login']);
+  const logincookies = useSelector(getLogin)
+
   useEffect(()=>{ 
-    console.log(" login cookies  ",cookies)
+    console.log(" login cookies  ",logincookies)
     if (Capacitor.getPlatform() === 'electron') {
       console.log('Running on Electron');
     }
-  },[])
+  },[logincookies])
   return(
-  <IonApp  >
-      <Menu />
-    <IonReactRouter>
-     {cookies?.login && <NavBar />} 
+  // <IonApp  >
+  //     <Menu />
+  //   <IonReactRouter>
+  //    {cookies?.login && <NavBar />} 
 
-      <IonRouterOutlet>
-        <Route exact path="/login" component={Login} /> 
-        <Route exact path="/home" component={Home} /> 
-        <Route exact path="/payment" component={Payment} /> 
-        <Route exact path="/products" component={Products} /> 
-        <Route exact path="/products/add" component={Product} /> 
-        <Route exact path={"/register"} component={Register} />
+  //     <IonRouterOutlet>
+  //       <Route exact path="/login" component={Login} /> 
+  //       <Route exact path="/home" component={Home} /> 
+  //       <Route exact path="/payment" component={Payment} /> 
+  //       <Route exact path="/products" component={Products} /> 
+  //       <Route exact path="/products/add" component={Product} />  
 
+  //       <Route exact path="/">
+  //         <Redirect to="/login" />
+  //       </Route>
+  //     </IonRouterOutlet>
+  //   </IonReactRouter>
+  // </IonApp>
+  <IonApp >
+    <CheckLoginCookie />
+      <IonReactRouter>
+        {
+          logincookies  ?
+        <IonSplitPane contentId="main" when="lg"> {/* Keep menu open on large screens */}
+          <IonMenu className='main-side-menu' contentId="main" type="overlay" swipeGesture={false}>
+            <MenuSplitContent />
+          </IonMenu>
 
-        <Route exact path="/">
-          <Redirect to="/login" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
+          <IonRouterOutlet  id="main">
+            <Route exact path="/login" component={Login} /> 
+            <Route exact path="/home" component={Home} /> 
+            <Route exact path="/payment" component={Payment} /> 
+            <Route exact path="/products" component={Products} /> 
+            <Route exact path="/products/add" component={Product} />  
+
+            <Route exact path="/">
+              <Redirect to="/login" />
+            </Route>
+          </IonRouterOutlet>
+        </IonSplitPane>:
+        <IonRouterOutlet  id="main">
+            <Route exact path="/login" component={Login} /> 
+            <Route exact path="/home" component={Home} /> 
+            <Route exact path="/payment" component={Payment} /> 
+            <Route exact path="/products" component={Products} /> 
+            <Route exact path="/products/add" component={Product} />  
+
+            <Route exact path="/">
+              <Redirect to="/login" />
+            </Route>
+        </IonRouterOutlet>
+        }
+
+      </IonReactRouter>
+        
+    </IonApp>
 )};
 
 export default App;

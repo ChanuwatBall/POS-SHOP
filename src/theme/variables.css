@@ -55,9 +55,10 @@ ion-inpu{
   color: black !important;
   --color: black !important;
 }
-ion-content, ion-page , #root{
-  background-color: #F6F8F9;
+ion-content, ion-page , #root , .content-background{
+  background-color: #F8F8F8 !important;
 }
+.content-background{ height: 100vh; overflow-y: scroll; }
  .content-padding{
   height: 90vh ;
   padding-top: 10vh 
@@ -68,6 +69,12 @@ ion-content, ion-page , #root{
   justify-content: center;
   align-items: center;
  }
+ .flex-row{ flex-direction: row;}
+ .flex-start{ justify-content: flex-start;}
+ .flex-between{ justify-content: space-between;}
+ .border-radius{ border-radius: 10px;}
+ .bordered{ border: 1px solid #ddd;}
+
 :root{  
   --ion-radius: 10px;
 
@@ -86,4 +93,9 @@ ion-content, ion-page , #root{
   --ion-color-secondary-rgb: 221 227 236;
   --ion-color-secondary-tint: #E9EEF5;
   --ion-color-secondary-shade: #B9C9DC;
+}
+
+.plt-desktop  ion-menu.main-side-menu {
+  --max-width: 18rem;
+  width: 18rem !important;
 }

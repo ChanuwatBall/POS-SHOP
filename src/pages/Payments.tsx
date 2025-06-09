@@ -1,8 +1,8 @@
-import { IonButton, IonCol, IonContent, IonInput, IonLabel, IonPage, IonRow, IonText } from "@ionic/react"
+import { IonButton, IonButtons, IonCol, IonContent, IonInput, IonLabel, IonPage, IonRow, IonText } from "@ionic/react"
 import "./css/Payment.css"
 import { useHistory } from "react-router"
 import { useEffect, useRef, useState } from "react"
-import ReceiptProducts from "../components/ReceiptProducts"
+import ReceiptProducts, { ProductSelectedList } from "../components/ReceiptProducts"
 import ButtonGroup from "../components/ButtonGroup"
 import CalculatorKeypad from "../components/CalculatorKeypad"
 import { useDispatch, useSelector } from "react-redux"
@@ -88,30 +88,38 @@ const Payment:React.FC=()=>{
     return(
     <IonPage>
         <IonContent>
-        <div className='content-padding' >
+        <div className='content-background ion-padding' style={{paddingRight:"0px",}} >
+          <div  className="ion-padding border-radius bordered" style={{background:"#FFF",height:"95vh"}} > 
             <IonRow  style={{height:"100%"}} >
-              <IonCol size='4' > 
-                 <ReceiptProducts 
+              <IonCol size='6' className="set-center" style={{ justifyContent:"flex-start"}} > 
+                 {/* <ReceiptProducts 
                    productsSelected={productsSelected} 
                    editCount={false}
-                 />
-              </IonCol>
-              <IonCol size='4' >
+                > </ReceiptProducts> */}
+                <div style={{width:"25rem",border:"1px dashed #ddd",height:"15rem",overflowY:"scroll"}} > 
+                  <ProductSelectedList 
+                    productsSelected={productsSelected}
+                    editProdunctCount={()=>{}}
+                  />
+                </div>
+              
                 <div className="ion-text-center set-center " style={{width:"100%",paddingTop:"1rem" }} >
-                    <IonText style={{fontSize:"1.5rem"}}> <strong>ยอดรวมที่ต้องจ่าย</strong></IonText><br/>
-                    <IonText  style={{fontSize:"4rem"}} color="primary" className=""> 
+                    <IonText style={{fontSize:"1rem"}}> <strong>ยอดรวมที่ต้องจ่าย</strong></IonText><br/>
+                    <IonText  style={{fontSize:"3rem"}} color="primary" className=""> 
                         <strong> {sum} </strong> 
                     </IonText><br/>
                     <ButtonGroup setCash={(cash:any)=>{countCash(cash);}}/> <br/><br/>
-                    <IonButton style={{width:"70%"}} mode="ios" color={"secondary"} expand="block" >
-                        <IonLabel className="line-seed bold" color={"dark"}   >ติดหนี้</IonLabel>
-                    </IonButton> 
-                    <IonButton style={{width:"70%"}} mode="ios" color={"secondary"} expand="block" >
-                        <IonLabel className="line-seed bold" color={"dark"} >พร้อมเพย์</IonLabel>
-                    </IonButton> 
+                    <IonButtons>
+                      <IonButton  mode="ios" color={"secondary"} expand="block" >
+                          <IonLabel className="line-seed bold" color={"dark"}   >ติดหนี้</IonLabel>
+                      </IonButton> 
+                      <IonButton  mode="ios" color={"secondary"} expand="block" >
+                          <IonLabel className="line-seed bold" color={"dark"} >พร้อมเพย์</IonLabel>
+                      </IonButton>  
+                    </IonButtons>
                 </div>
               </IonCol>
-              <IonCol size='4' >
+              <IonCol size='6' >
               <div className="  " style={{width:"100%",paddingTop:"1rem" }} >
                 <div className="input-cash" >
                     <IonLabel>เงินสด</IonLabel>
@@ -154,6 +162,7 @@ const Payment:React.FC=()=>{
                 </div>
               </IonCol>
             </IonRow>
+            </div>
           </div>
         </IonContent>
     </IonPage>

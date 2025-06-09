@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { 
   IonCard, 
   IonCardContent,
@@ -22,12 +22,14 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import { addOutline, removeOutline } from 'ionicons/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductReceipt, getReceiptTotal, setReceiptTotal } from '../store/recieptsSlice';
+import "./css/ReceiptProducts.css"
 
 interface ReceiptProductsProps { 
     productsSelected:any[]
     editCount: Boolean
+    children: ReactNode
 }
-const ReceiptProducts: React.FC<ReceiptProductsProps> = ({editCount}) => {
+const ReceiptProducts: React.FC<ReceiptProductsProps> = ({editCount , children}) => {
   // const [sum,setSum] = useState("0.00") 
   const productsSelected:any[] = useSelector(getProductReceipt)
   const sum = useSelector(getReceiptTotal)
@@ -117,7 +119,7 @@ const ReceiptProducts: React.FC<ReceiptProductsProps> = ({editCount}) => {
   }
 
   return ( 
-      <div  >
+      <div className='receipt-product'  >
         <IonModal 
         isOpen={open} mode='ios'
         onIonModalDidDismiss={()=>{setOpen(false)}} 
@@ -155,7 +157,7 @@ const ReceiptProducts: React.FC<ReceiptProductsProps> = ({editCount}) => {
           </IonFooter>
         </IonModal>
 
-        <IonCard mode='ios' className='line-seed'>
+        <IonCard mode='ios' className='line-seed'  >
             <div>
                 <IonItem>
                     <IonLabel className='line-seed bold' > รายการชำระเงิน </IonLabel>
@@ -174,8 +176,11 @@ const ReceiptProducts: React.FC<ReceiptProductsProps> = ({editCount}) => {
                 </IonItem>
             </div>
           <IonCardContent className='ion-no-padding ion-paddinghorizontal' style={{height:"36vh" , overflowY:"scroll"}} >
-            
-            <IonGrid className='ion-padding-horizontal' > 
+            <ProductSelectedList 
+             productsSelected={productsSelected}
+             editProdunctCount={editProdunctCount}
+            />
+            {/* <IonGrid className='ion-padding-horizontal' > 
                 {
                     productsSelected.map((e:any,index:any)=>
                     <IonRow key={index} 
@@ -187,7 +192,7 @@ const ReceiptProducts: React.FC<ReceiptProductsProps> = ({editCount}) => {
                     </IonRow>
                     )
                 } 
-            </IonGrid> 
+            </IonGrid>  */}
            
           </IonCardContent>
           <IonFooter className='ion-padding'>
@@ -214,9 +219,28 @@ const ReceiptProducts: React.FC<ReceiptProductsProps> = ({editCount}) => {
             </IonRow>
           </IonFooter>
         </IonCard>
-       
+       {children}
       </div> 
   );
 };
 
 export default ReceiptProducts;
+
+export const ProductSelectedList=({productsSelected,editProdunctCount}:any)=>{
+
+  return(
+    <IonGrid className='ion-padding-horizontal' > 
+      {
+          productsSelected.map((e:any,index:any)=>
+          <IonRow key={index} 
+          style={{borderBottom:"1px dashed #ccc"}} 
+          onClick={()=>{editProdunctCount(e,index)}}>
+              <IonCol><IonText>{index+1}. {e?.name}</IonText></IonCol>
+              <IonCol size="3" className='ion-text-center' ><IonText>{e?.unitPrice}</IonText></IonCol> 
+              <IonCol size="3" className='ion-text-center'><IonText>{e?.unitPrice * e?.count}  <small>x{e?.count}</small></IonText></IonCol>
+          </IonRow>
+          )
+      } 
+    </IonGrid> 
+  )
+}

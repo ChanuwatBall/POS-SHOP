@@ -18,6 +18,9 @@ import {
   IonTitle,
   IonList,
   IonItem,
+  IonSelect,
+  IonSelectOption,
+  IonButtons,
 } from "@ionic/react";
 import "./css/ProductGrid.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -113,12 +116,27 @@ const ProductGrid: React.FC<ProductGridProps> = ({choose}) => {
       <div className="product-page">
         <IonGrid>
           <IonRow>
-            <IonCol   size="3"  className="ion-hide-sm-down"  >
+            {/* <IonCol   size="3"  className="ion-hide-sm-down"  >
               <div className="ion-hide-md-down" style={{height:"90vh"}}>
                 <SideBar setCatagories={(e:any)=>searchProductFromCat(e)} category={category} />
               </div>
-            </IonCol> 
-            <IonCol   className="ion-no-padding"  style={{paddingLeft:"1rem"}}> 
+            </IonCol>  */}
+            <IonCol size="12" className="set-center flex-row flex-between" >
+              <IonButtons> 
+                 <IonButton style={{width:"5rem"}}> พักบิล</IonButton>
+                <IonButton style={{width:"5rem"}}> เรียกบิล</IonButton>
+                <IonSelect value={1} style={{width:"9rem"}}>
+                    <IonSelectOption value={1}> label 1 </IonSelectOption>
+                    <IonSelectOption value={2}> label 2 </IonSelectOption>
+                </IonSelect> 
+              </IonButtons>
+
+              <IonButton>
+                 <IonIcon icon={timeOutline} />
+              </IonButton>
+                
+            </IonCol>
+            <IonCol size="12"  className="ion-no-padding"  style={{paddingLeft:"1rem"}}> 
               {productsCat.length === 0 && <div className="set-center" style={{height:"100%"}}  >
                <IonSpinner name="circles" /> 
               </div>} 
