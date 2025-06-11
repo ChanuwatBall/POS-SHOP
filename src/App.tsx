@@ -45,8 +45,8 @@ import Register from './pages/Register';
 import { home, settings } from 'ionicons/icons';
 import { useSelector } from 'react-redux';
 import { getLogin } from './store/authSlice';
-import { CheckLoginCookie } from './components/checkCookie';
-import MenuSplitContent from './pages/MenuSplit';
+import { CheckLoginCookie } from './components/CheckCookie';
+import MenuSplitContent from './components/MenuSplit';
 
 setupIonicReact();
 
@@ -60,25 +60,7 @@ const App: React.FC = () =>{
       console.log('Running on Electron');
     }
   },[logincookies])
-  return(
-  // <IonApp  >
-  //     <Menu />
-  //   <IonReactRouter>
-  //    {cookies?.login && <NavBar />} 
-
-  //     <IonRouterOutlet>
-  //       <Route exact path="/login" component={Login} /> 
-  //       <Route exact path="/home" component={Home} /> 
-  //       <Route exact path="/payment" component={Payment} /> 
-  //       <Route exact path="/products" component={Products} /> 
-  //       <Route exact path="/products/add" component={Product} />  
-
-  //       <Route exact path="/">
-  //         <Redirect to="/login" />
-  //       </Route>
-  //     </IonRouterOutlet>
-  //   </IonReactRouter>
-  // </IonApp>
+  return( 
   <IonApp >
     <CheckLoginCookie />
       <IonReactRouter>

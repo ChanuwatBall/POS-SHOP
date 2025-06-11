@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import {
   IonPage,
   IonContent,
@@ -81,9 +81,10 @@ const productsCats:any[]=[
 ]
 
 interface ProductGridProps { 
-  choose:(e:any)=>{ }
+  choose:(e:any)=>{ } ,
+  children: ReactNode
 }
-const ProductGrid: React.FC<ProductGridProps> = ({choose}) => {
+const ProductGrid: React.FC<ProductGridProps> = ({choose , children}) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("สินค้าแนะนำ");
   const [category,setCatagories] = useState({id:1 , title:"สินค้าแนะนำ"})
   const [productsCat,setProducsCat] = useState<any[]>([])
@@ -112,29 +113,13 @@ const ProductGrid: React.FC<ProductGridProps> = ({choose}) => {
     },200)
   },[])
 
+
   return ( 
       <div className="product-page">
         <IonGrid>
-          <IonRow>
-            {/* <IonCol   size="3"  className="ion-hide-sm-down"  >
-              <div className="ion-hide-md-down" style={{height:"90vh"}}>
-                <SideBar setCatagories={(e:any)=>searchProductFromCat(e)} category={category} />
-              </div>
-            </IonCol>  */}
+          <IonRow> 
             <IonCol size="12" className="set-center flex-row flex-between" >
-              <IonButtons> 
-                 <IonButton style={{width:"5rem"}}> พักบิล</IonButton>
-                <IonButton style={{width:"5rem"}}> เรียกบิล</IonButton>
-                <IonSelect value={1} style={{width:"9rem"}}>
-                    <IonSelectOption value={1}> label 1 </IonSelectOption>
-                    <IonSelectOption value={2}> label 2 </IonSelectOption>
-                </IonSelect> 
-              </IonButtons>
-
-              <IonButton>
-                 <IonIcon icon={timeOutline} />
-              </IonButton>
-                
+                {children}
             </IonCol>
             <IonCol size="12"  className="ion-no-padding"  style={{paddingLeft:"1rem"}}> 
               {productsCat.length === 0 && <div className="set-center" style={{height:"100%"}}  >

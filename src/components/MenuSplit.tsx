@@ -1,12 +1,15 @@
-import { IonSplitPane, IonMenu, IonContent, IonList, IonItem, IonLabel, IonRouterOutlet, IonIcon, IonMenuToggle } from "@ionic/react"
+import { IonSplitPane, IonMenu, IonContent, IonList, IonItem, IonLabel, IonRouterOutlet, IonIcon, IonMenuToggle, IonChip, IonBadge } from "@ionic/react"
 import { albumsOutline, bagHandleOutline, barChartOutline, bookOutline, cubeOutline, gridOutline, home, logOutOutline, peopleOutline, pinOutline, receiptOutline, settings } from "ionicons/icons";
 import "./css/MenuContent.css"
 import { useCookies } from "react-cookie";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
+import { getBreakBill } from "../store/recieptsSlice";
 
 const MenuSplitContent=()=>{
   const history = useHistory()
   const [cookies, setCookie, removeCookie] = useCookies(['login']);
+  const billPaused = useSelector(getBreakBill)
 
   const logout=()=>{
     removeCookie("login")
@@ -21,7 +24,11 @@ const MenuSplitContent=()=>{
         <IonMenuToggle autoHide={false}>
           <IonItem routerLink="/home" routerDirection="none" lines="none">
             <IonIcon icon={bagHandleOutline} slot="start" />
-            <IonLabel>การขาย</IonLabel>
+            <IonLabel>การขาย &nbsp;
+               {billPaused.length > 0 && <IonBadge slot="end" color={"danger"} mode="ios" >{billPaused.length}</IonBadge> }
+            </IonLabel>
+
+           
           </IonItem>
         </IonMenuToggle>
         <IonMenuToggle autoHide={false}>

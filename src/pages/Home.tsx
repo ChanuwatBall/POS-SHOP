@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonMenuButton, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './css/Home.css';
 import { useEffect, useState } from 'react';
@@ -7,9 +7,10 @@ import Menu from '../components/Menu';
 import ReceiptProducts from '../components/ReceiptProducts';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductReceipt, getReceiptTotal, setProductReceipt } from '../store/recieptsSlice';
+import { getBreakBill, getProductReceipt, getReceiptTotal, setBreakBill, setProductReceipt } from '../store/recieptsSlice';
 import { useCookies } from 'react-cookie';
 import { setLogin } from '../store/authSlice';
+import { timeOutline } from 'ionicons/icons';
 
 interface productsSelectedProps {
   id: Number ,name: String , count: any , unitPrice: Number
@@ -19,11 +20,11 @@ const Home:React.FC=()=>{
     const productsSelected:any[] = useSelector(getProductReceipt) 
       const dispatch = useDispatch();
       const history = useHistory()
-      const [cookies, setCookie, removeCookie] = useCookies(['login']);
+      const sum = useSelector(getReceiptTotal)
+      const billPaused = useSelector(getBreakBill)
       
-      useEffect(()=>{ 
-        // console.log("cookies.login ",cookies)
-        // dispatch(setLogin(cookies.login))
+      
+      useEffect(()=>{  
       },[productsSelected])
     
       const choose=(product:any)=>{ 
@@ -38,17 +39,23 @@ const Home:React.FC=()=>{
             update,
             ...productsSelected.slice(indexs + 1)
           ];
-     
-          // setProductSelected(productsSelectedUpdate)
+      
           dispatch(setProductReceipt(productsSelectedUpdate))
     
         }else{
           const productsSelectedUpdate = [...productsSelected,  {  ...product, ...{count:1 }} ] 
-          // setProductSelected(productsSelectedUpdate)
+ 
           dispatch(setProductReceipt(productsSelectedUpdate))
         }
       }
 
+  const puaseBill=()=>{
+    const billtopause ={
+      products : productsSelected ,
+      sum : sum
+    }
+    dispatch(setBreakBill([...billPaused , billtopause]))
+  }
 
     return(
     <IonPage>
@@ -60,7 +67,20 @@ const Home:React.FC=()=>{
             <IonGrid>
                 <IonRow>
                     <IonCol size='7' >
-                       <ProductGrid choose={async (product) => choose(product)} />
+                       <ProductGrid choose={async (product) => choose(product)} >
+                        <IonButtons> 
+                          <IonButton style={{width:"5rem"}}  onClick={()=>{puaseBill()}} > พักบิล</IonButton>
+                          <IonButton style={{width:"5rem"}}> เรียกบิล</IonButton>
+                          <IonSelect value={1} style={{width:"9rem"}}>
+                              <IonSelectOption value={1}> label 1 </IonSelectOption>
+                              <IonSelectOption value={2}> label 2 </IonSelectOption>
+                          </IonSelect> 
+                        </IonButtons>
+                        
+                        <IonButton>
+                           <IonIcon icon={timeOutline} />
+                        </IonButton>
+                       </ProductGrid>
                     </IonCol>
                     <IonCol >
                         <ReceiptProducts productsSelected={productsSelected} editCount={true} >
@@ -75,8 +95,7 @@ const Home:React.FC=()=>{
                                     <strong>ชำระเงิน</strong>
                                 </IonButton>
                             </div>
-                        </ReceiptProducts>
-                       
+                        </ReceiptProducts> 
 
                     </IonCol>
                 </IonRow>
