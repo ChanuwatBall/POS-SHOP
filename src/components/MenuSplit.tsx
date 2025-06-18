@@ -6,6 +6,7 @@ import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
 import { getBreakBill } from "../store/recieptsSlice";
 
+  
 const MenuSplitContent=()=>{
   const history = useHistory()
   const [cookies, setCookie, removeCookie] = useCookies(['login']);
@@ -32,7 +33,7 @@ const MenuSplitContent=()=>{
           </IonItem>
         </IonMenuToggle>
         <IonMenuToggle autoHide={false}>
-          <IonItem routerLink="/settings" routerDirection="none" lines="none">
+          <IonItem routerLink="/pin-products" routerDirection="none" lines="none">
             <IonIcon icon={pinOutline} slot="start" />
             <IonLabel>ปักหมุดสินค้า</IonLabel>
           </IonItem>

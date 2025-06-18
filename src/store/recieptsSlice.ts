@@ -6,7 +6,7 @@ import { StateType } from "../types/statetypes";
 const initialState:StateType = {
     productReceipt : [] ,
     receiptTotal: 0 ,
-    breakBill:[]
+    breakBill:[] 
 }
 
 export const recieptsSlice = createSlice({
@@ -21,7 +21,7 @@ export const recieptsSlice = createSlice({
       },
       setBreakBill: (state, action) => {
         state.breakBill = action.payload;
-      },
+      } 
     }
 }) 
 
@@ -29,14 +29,15 @@ export const recieptsSlice = createSlice({
 export const { 
     setProductReceipt ,
     setReceiptTotal,
-    setBreakBill 
+    setBreakBill  
 } = recieptsSlice.actions;
 
 
 export const getProductReceipt = (state:RootState) => state.receiptstate.productReceipt
 export const getReceiptTotal = (state:RootState) => state.receiptstate.receiptTotal
-export const getBreakBill = (state:RootState) => state.receiptstate.breakBill
-
+export const getBreakBill = (state:RootState) => state.receiptstate.breakBill 
+ 
+ 
 
 export default recieptsSlice.reducer;
  

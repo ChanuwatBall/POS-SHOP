@@ -1,0 +1,3 @@
+.select-categories::part(icon){ 
+    color: var(--ion-color-primary);
+}

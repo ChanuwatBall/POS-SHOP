@@ -17,10 +17,7 @@ import {
   IonToolbar,
   IonTitle,
   IonList,
-  IonItem,
-  IonSelect,
-  IonSelectOption,
-  IonButtons,
+  IonItem, 
 } from "@ionic/react";
 import "./css/ProductGrid.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +25,7 @@ import { getBreakBill, getProductReceipt, setBreakBill, setProductReceipt, setRe
 import { BreakBill } from "../types/statetypes";
 import moment from "moment";
 import { timeOutline } from "ionicons/icons";
+import { getProducts } from "../store/productSlice";
 
 const category = [
   "สินค้าแนะนำ",
@@ -82,19 +80,21 @@ const productsCats:any[]=[
 
 interface ProductGridProps { 
   choose:(e:any)=>{ } ,
-  children: ReactNode
+  children: ReactNode ,
+  catetory: any
 }
-const ProductGrid: React.FC<ProductGridProps> = ({choose , children}) => {
+const ProductGrid: React.FC<ProductGridProps> = ({choose , children , catetory}) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("สินค้าแนะนำ");
   const [category,setCatagories] = useState({id:1 , title:"สินค้าแนะนำ"})
   const [productsCat,setProducsCat] = useState<any[]>([])
+  const products = useSelector(getProducts)
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category);
   };
 
   const renderProductGrid = () => { 
-    return productsCat.length > 0 && productsCat[0].products.map((p:any, i:any) => (
+    return products.filter((p)=>  p.categories.includes(catetory)).slice(0,50).map((p:any, i:any) => (
       <IonCol 
        sizeMd="3" sizeSm="4" sizeXs="4"  key={i}  
        onClick={()=>{return choose(p)}}
@@ -104,8 +104,8 @@ const ProductGrid: React.FC<ProductGridProps> = ({choose , children}) => {
 
   const searchProductFromCat=(e:any)=>{
     // console.log("e ",e)
-    setCatagories(e)
-    setProducsCat(productsCats.filter((cat)=>cat?.id === e?.id))
+    // setCatagories(e)
+    setProducsCat(productsCats.filter((cat)=>cat?.id === catetory))
   }
   useEffect(()=>{ 
     setTimeout(()=>{

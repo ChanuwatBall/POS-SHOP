@@ -47,6 +47,7 @@ import { useSelector } from 'react-redux';
 import { getLogin } from './store/authSlice';
 import { CheckLoginCookie } from './components/CheckCookie';
 import MenuSplitContent from './components/MenuSplit';
+import PinProducts from './pages/PinProducts';
 
 setupIonicReact();
 
@@ -77,6 +78,7 @@ const App: React.FC = () =>{
             <Route exact path="/payment" component={Payment} /> 
             <Route exact path="/products" component={Products} /> 
             <Route exact path="/products/add" component={Product} />  
+            <Route exact path={"/pin-products"} component={PinProducts} />
 
             <Route exact path="/">
               <Redirect to="/login" />
@@ -89,6 +91,7 @@ const App: React.FC = () =>{
             <Route exact path="/payment" component={Payment} /> 
             <Route exact path="/products" component={Products} /> 
             <Route exact path="/products/add" component={Product} />  
+            <Route exact path={"/pin-products"} component={PinProducts} />
 
             <Route exact path="/">
               <Redirect to="/login" />

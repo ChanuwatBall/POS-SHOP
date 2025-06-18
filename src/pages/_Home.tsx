@@ -47,7 +47,7 @@ const Homes: React.FC = () => {
           <div className='content-padding' style={{}}>
             <IonRow  style={{height:"100%"}} >
               <IonCol sizeXs='12' sizeMd='8' >
-                <ProductGrid choose={async (product) => choose(product)} />
+                <ProductGrid choose={async (product) => choose(product)} catetory={1} > </ProductGrid>
               </IonCol>
               <IonCol sizeXs='12' sizeMd='4' >
                  <ReceiptProducts productsSelected={productsSelected} editCount={true} > 

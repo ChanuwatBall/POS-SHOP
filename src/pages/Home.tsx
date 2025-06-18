@@ -1,17 +1,15 @@
-import { IonBadge, IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenuButton, IonModal, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTitle, IonToolbar, useIonAlert } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './css/Home.css';
+import { IonBadge, IonButton,  IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenuButton, IonModal, IonPage, IonRow, IonSelect, IonSelectOption, IonText,  IonToolbar, useIonAlert } from '@ionic/react';
 import { useEffect, useState } from 'react';
-import ProductGrid from '../components/ProductGrid';
-import Menu from '../components/Menu';
+import ProductGrid from '../components/ProductGrid'; 
 import ReceiptProducts from '../components/ReceiptProducts';
 import { useHistory } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBreakBill, getProductReceipt, getReceiptTotal, setBreakBill, setProductReceipt, setReceiptTotal } from '../store/recieptsSlice';
-import { useCookies } from 'react-cookie';
-import { setLogin } from '../store/authSlice';
 import { closeCircle, receiptOutline, timeOutline } from 'ionicons/icons';
 import moment from 'moment';
+import { getCatagories } from '../store/productSlice';
+
+import './css/Home.css';
 
 interface productsSelectedProps {
   id: Number ,name: String , count: any , unitPrice: Number
@@ -25,6 +23,8 @@ const Home:React.FC=()=>{
       const billPaused = useSelector(getBreakBill)
       const [openModal , setOpenModal] = useState(false)
       const [ionalert , dimissAlert] = useIonAlert()
+      const categories = useSelector(getCatagories)
+      const [cat ,setCat] = useState(1)
       
       
       useEffect(()=>{  
@@ -32,8 +32,7 @@ const Home:React.FC=()=>{
     
       const choose=(product:any)=>{ 
         const isadd:any= productsSelected.filter((e:productsSelectedProps)=> e?.id === product?.id)
-      
-    
+       
         if(isadd.length > 0){
           const update = {...isadd[0] , ...{count: isadd[0]?.count +1}}
           const indexs = productsSelected.indexOf(isadd[0])
@@ -100,7 +99,7 @@ const Home:React.FC=()=>{
             <IonGrid>
                 <IonRow>
                     <IonCol size='7' >
-                       <ProductGrid choose={async (product) => choose(product)} >
+                       <ProductGrid catetory={cat} choose={async (product) => choose(product)} >
                        
                         <div className='set-center flex-row flex-start' style={{width:"70%"}} >
                           <IonButton  fill='outline' mode='ios' size='small'  onClick={()=>{puaseBill()}} > 
@@ -113,14 +112,22 @@ const Home:React.FC=()=>{
                             <IonLabel>เรียกบิล</IonLabel>
                           </IonButton>
                           &nbsp;
-                          <IonSelect value={1} style={{width:"9rem"}}>
-                              <IonSelectOption value={1}> label 1 </IonSelectOption>
-                              <IonSelectOption value={2}> label 2 </IonSelectOption>
-                          </IonSelect>
+                         <IonButton  fill='outline' mode='ios' size='small' style={{height:"1.8rem"}}>
+                            <IonSelect className='select-categories'mode='ios' 
+                             interface="popover"  value={cat} 
+                             onIonChange={(e)=>{setCat(e.detail.value)}} 
+                            >
+                              {
+                                categories.map((cat)=>
+                                <IonSelectOption value={cat.id}> {cat?.name} </IonSelectOption>
+                                )
+                              } 
+                            </IonSelect>
+                        </IonButton>
                         </div> 
                         
                         
-                        <IonButton>
+                        <IonButton fill='clear' mode='ios' size='small'>
                            <IonIcon icon={timeOutline} />
                         </IonButton>
                        </ProductGrid>

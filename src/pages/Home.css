@@ -1,0 +1,4 @@
+.select-categories{
+    --border-color: var(--ion-color-primary);
+    --border-width: 1px;
+}
