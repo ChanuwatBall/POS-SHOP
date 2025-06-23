@@ -11,6 +11,11 @@ const initialState = {
       { id: 40 ,name:"ดินสอ"  ,unitPrice: 8.00  , instock: 20,categories: [1 ,3 ]},
       { id: 32 ,name:"สมุด"  ,unitPrice: 12.00  , instock: 20,categories: [1 ,3 ]},
       { id: 35 ,name:"เลย์ ดั้งเดิมแผ่นหยัก 20g."  ,unitPrice: 6.00  , instock: 20,categories: [1 , 2]},
+      { id: 36 ,name:"เลย์ ดั้งเดิมแผ่นเรียบ 20g."  ,unitPrice: 6.00  , instock: 20,categories: [ 2]},
+      { id: 37 ,name:"เลย์ โนริสาหร่ายแผ่นเรียบ 20g."  ,unitPrice: 6.00  , instock: 20,categories: [ 2]},
+      { id: 35 ,name:"เลย์ ดั้งเดิมแผ่นหยัก 40g."  ,unitPrice: 6.00  , instock: 20,categories: [ 2]},
+      { id: 36 ,name:"เลย์ ดั้งเดิมแผ่นเรียบ 40g."  ,unitPrice: 6.00  , instock: 20,categories: [ 2]},
+      { id: 37 ,name:"เลย์ โนริสาหร่ายแผ่นเรียบ 40g."  ,unitPrice: 6.00  , instock: 20,categories: [ 2]},
     ],
     products:[
       { id: 23 ,name:"Soap" ,unitPrice: 18.00 , instock: 20  ,categories: [1 ,3 ]},
@@ -19,6 +24,11 @@ const initialState = {
       { id: 40 ,name:"ดินสอ"  ,unitPrice: 8.00  , instock: 20,categories: [1 ,3 ]},
       { id: 32 ,name:"สมุด"  ,unitPrice: 12.00  , instock: 20,categories: [1 ,3 ]},
       { id: 35 ,name:"เลย์ ดั้งเดิมแผ่นหยัก 20g."  ,unitPrice: 6.00  , instock: 20,categories: [1 , 2]},
+      { id: 36 ,name:"เลย์ ดั้งเดิมแผ่นเรียบ 20g."  ,unitPrice: 6.00  , instock: 20,categories: [ 2]},
+      { id: 37 ,name:"เลย์ โนริสาหร่ายแผ่นเรียบ 20g."  ,unitPrice: 6.00  , instock: 20,categories: [ 2]},
+      { id: 35 ,name:"เลย์ ดั้งเดิมแผ่นหยัก 40g."  ,unitPrice: 6.00  , instock: 20,categories: [ 2]},
+      { id: 36 ,name:"เลย์ ดั้งเดิมแผ่นเรียบ 40g."  ,unitPrice: 6.00  , instock: 20,categories: [ 2]},
+      { id: 37 ,name:"เลย์ โนริสาหร่ายแผ่นเรียบ 40g."  ,unitPrice: 6.00  , instock: 20,categories: [ 2]},
     ],
     categories:[
       {id:1 ,name:"Favorite" } ,
@@ -37,12 +47,16 @@ export const productSlice = createSlice({
        setProducts: (state, action) => {
         state.products = action.payload;
        },
+        setProductsBackup: (state, action) => {
+        state.productsBackup = action.payload;
+       },
     }
 })
 
 export const {  
     setCatagories ,
-    setProducts
+    setProducts ,
+    setProductsBackup
 } = productSlice.actions;
 
 

@@ -28,8 +28,6 @@ const MenuSplitContent=()=>{
             <IonLabel>การขาย &nbsp;
                {billPaused.length > 0 && <IonBadge slot="end" color={"danger"} mode="ios" >{billPaused.length}</IonBadge> }
             </IonLabel>
-
-           
           </IonItem>
         </IonMenuToggle>
         <IonMenuToggle autoHide={false}>
