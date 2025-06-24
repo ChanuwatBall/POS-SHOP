@@ -1,0 +1,19 @@
+
+.date-picker{
+    margin-bottom: 1rem; 
+    border-radius: 1rem;
+    background-color: #FFF;
+    width: fit-content;
+    padding: .3rem;
+    border-radius: var(--ion-radius);
+    border: 1px solid #ddd;
+}
+.popup-date{
+    position: absolute;
+    border-radius: var(--ion-radius);
+    background-color: var(--ion-color-white);
+    z-index: 999;
+    box-shadow: -5px 2px 19px -9px rgba(0,0,0,0.3);
+-webkit-box-shadow: -5px 2px 19px -9px rgba(0,0,0,0.3);
+-moz-box-shadow: -5px 2px 19px -9px rgba(0,0,0,0.3);
+}

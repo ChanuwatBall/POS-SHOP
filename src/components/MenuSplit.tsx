@@ -37,7 +37,7 @@ const MenuSplitContent=()=>{
           </IonItem>
         </IonMenuToggle>
         <IonMenuToggle autoHide={false}>
-          <IonItem routerLink="/settings" routerDirection="none" lines="none">
+          <IonItem routerLink="/bills" routerDirection="none" lines="none">
             <IonIcon icon={receiptOutline} slot="start" />
             <IonLabel>บิลที่ขาย</IonLabel>
           </IonItem>

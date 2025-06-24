@@ -48,6 +48,7 @@ import { getLogin } from './store/authSlice';
 import { CheckLoginCookie } from './components/CheckCookie';
 import MenuSplitContent from './components/MenuSplit';
 import PinProducts from './pages/PinProducts';
+import Bills from './pages/Bills';
 
 setupIonicReact();
 
@@ -79,6 +80,7 @@ const App: React.FC = () =>{
             <Route exact path="/products" component={Products} /> 
             <Route exact path="/products/add" component={Product} />  
             <Route exact path={"/pin-products"} component={PinProducts} />
+            <Route exact path={"/bills"} component={Bills} />
 
             <Route exact path="/">
               <Redirect to="/login" />
@@ -92,6 +94,7 @@ const App: React.FC = () =>{
             <Route exact path="/products" component={Products} /> 
             <Route exact path="/products/add" component={Product} />  
             <Route exact path={"/pin-products"} component={PinProducts} />
+            <Route exact path={"/bills"} component={Bills} />
 
             <Route exact path="/">
               <Redirect to="/login" />
