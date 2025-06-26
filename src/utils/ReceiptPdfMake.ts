@@ -1,16 +1,16 @@
 // ReceiptPdfMake.ts
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
-
-// สำหรับรองรับฟอนต์ (รวมทั้งภาษาไทย)
-pdfMake.vfs = pdfFonts?.vfs
+import {fontPdfMake} from  "./vfs_fonts"
+ 
+pdfMake.vfs = fontPdfMake.vfs 
 pdfMake.fonts={
     THSarabunNew:{
-        normal: 'https://codingthailand.com/site/fonts/th/THSarabunNew.ttf',
-        bold: 'https://codingthailand.com/site/fonts/th/THSarabunNewBold.ttf',
-        italics: 'https://codingthailand.com/site/fonts/th/THSarabunNewItalic.ttf',
+         normal: 'THSarabunNew.ttf',
+        bold: 'THSarabunNew-Bold.ttf',
+        italics: 'THSarabunNew-Italic.ttf',
+        bolditalics: 'THSarabunNew-BoldItalic.ttf'
     },   
-    Roboto: {
+    Roboto: { 
       normal: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf',
       bold: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Medium.ttf',
       italics: 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Italic.ttf',
