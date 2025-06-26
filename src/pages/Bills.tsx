@@ -6,13 +6,13 @@ import { Calendar, DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import "./css/Bills.css"
-import { caretDown, caretUp, closeCircle } from "ionicons/icons";
+import { caretDown, caretUp, closeCircle, printOutline } from "ionicons/icons";
+import { generateReceiptPdfMake } from "../utils/ReceiptPdfMake";
 
  const bills = [
         {
             id:"bill0001",
-            date: "24 มิถุนายน 2568" ,
-            tottal: 84.00 ,
+            date: "24 มิถุนายน 2568" , 
             create: "2025-06-24 19:12:39",
             products:[
                 { id: 35 ,name:"เลย์ ดั้งเดิมแผ่นหยัก 20g."  ,unitPrice: 6.00 , count: 1 , price: 6.00},
@@ -25,8 +25,7 @@ import { caretDown, caretUp, closeCircle } from "ionicons/icons";
         },
          {
             id:"bill0002",
-            date: "24 มิถุนายน 2568" ,
-            tottal: 84.00 ,
+            date: "24 มิถุนายน 2568" , 
             create: "2025-06-24 19:12:39",
             products:[
                 { id: 23 ,name:"Soap" ,unitPrice: 18.00 ,count: 1 , price: 18.00  },
@@ -56,6 +55,16 @@ const Bills:React.FC =()=>{
         setBillDtail(bill)
     }
 
+    const printBill=()=>{
+        generateReceiptPdfMake({
+            date:billdetail?.date ,
+            products: billdetail?.products , 
+            total:billdetail?.total , 
+            cash:billdetail?.cash ,
+            change: billdetail?.change
+        })
+    }
+
     return(
         <IonPage>
             <IonHeader mode='md' className='ion-no-border ion-hide-sm-up' >
@@ -67,7 +76,7 @@ const Bills:React.FC =()=>{
                     <IonGrid>
                         <IonRow>
                             <IonCol>
-                                  <div style={{position:"relative"}}> 
+                                <div style={{position:"relative"}}> 
                                     <div className="date-picker set-center flex-row" onClick={()=>setPopupDate(!popupdate)}>
                                         เลือกวันที่: &nbsp;
                                         {moment(selectionRange?.startDate).format("DD-MMM-YYYY")} To &nbsp;
@@ -92,7 +101,7 @@ const Bills:React.FC =()=>{
                                         <IonCardHeader>  {b?.date} </IonCardHeader>
                                         <IonCardContent> 
                                             <IonLabel color={"dark"}>
-                                             <strong>{b?.tottal} Bath</strong>
+                                             <strong>{b?.total?.toFixed(2)} Bath</strong>
                                             </IonLabel> <br/>
                                             <IonLabel>{b?.create}</IonLabel> 
                                         </IonCardContent>
@@ -103,7 +112,9 @@ const Bills:React.FC =()=>{
                                     </IonRow>
                             </IonCol>
                             <IonCol size="5" >
-                                <div className='receipt-product ion-text-center ion-padding ' style={{width:"100%", height:"85vh",overflowY:"scroll"}}  > 
+                                <div className='receipt-product ion-text-center ion-padding ' 
+                                style={{width:"100%", height:"85vh",overflowY:"scroll",position:"relative"}}  > 
+                                 <button onClick={()=>{printBill()}} className="btn-print-bill" ><IonIcon icon={printOutline} /></button>
                                   { billdetail && <div>
                                     <IonLabel className="ion-text-center">
                                      <strong>ใบเสร็จรับเงิน</strong>
@@ -123,7 +134,7 @@ const Bills:React.FC =()=>{
                                                 <div key={index} className="product text-small" 
                                                 style={{width:"100%", display:"flex", justifyContent:"space-between"}}>
                                                     <IonLabel>{p?.name} x{p?.count}</IonLabel> 
-                                                    <IonLabel>{p?.price}</IonLabel>
+                                                    <IonLabel>{p?.price?.toFixed(2)}</IonLabel>
                                                 </div>
                                             )
                                         }
@@ -132,7 +143,7 @@ const Bills:React.FC =()=>{
                                     <div className="totals" style={{borderTop:"1px dashed #DDD",paddingTop:"5px",paddingBottom:"5px"}} >
                                         <div className="product text-small" style={{width:"100%", display:"flex", justifyContent:"space-between"}}>
                                             <IonLabel>รวม </IonLabel> 
-                                            <IonLabel>{billdetail?.total}</IonLabel>
+                                            <IonLabel>{billdetail?.total?.toFixed(2)}</IonLabel>
                                         </div>
                                         <div className="product text-small" style={{width:"100%", display:"flex", justifyContent:"space-between"}}>
                                             <IonLabel>ภาษี 7%</IonLabel> 
@@ -140,7 +151,7 @@ const Bills:React.FC =()=>{
                                         </div>
                                          <div className="product text-small text-bold " style={{width:"100%", display:"flex", justifyContent:"space-between"}}>
                                             <IonLabel>รวมทั้งหมด</IonLabel> 
-                                            <IonLabel>{billdetail?.total}</IonLabel>
+                                            <IonLabel>{billdetail?.total?.toFixed(2)}</IonLabel>
                                         </div>
                                     </div>
                                     <div className="totals" style={{borderTop:"1px dashed #DDD",paddingTop:"5px"}} >
@@ -149,11 +160,11 @@ const Bills:React.FC =()=>{
                                         </div>
                                         <div className="product text-small" style={{width:"100%", display:"flex", justifyContent:"space-between"}}>
                                             <IonLabel>เงินสด</IonLabel> 
-                                            <IonLabel>{billdetail?.cash}</IonLabel>
+                                            <IonLabel>{billdetail?.cash?.toFixed(2)}</IonLabel>
                                         </div>
                                          <div className="product text-small text-bold " style={{width:"100%", display:"flex", justifyContent:"space-between"}}>
                                             <IonLabel>เงินทอน</IonLabel> 
-                                            <IonLabel>{billdetail?.change}</IonLabel>
+                                            <IonLabel>{billdetail?.change?.toFixed(2)}</IonLabel>
                                         </div>
                                     </div>
 
