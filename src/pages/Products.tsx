@@ -1,48 +1,55 @@
-import { IonBreadcrumb, IonBreadcrumbs, IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonRow } from "@ionic/react"
+import { IonBreadcrumb, IonBreadcrumbs, IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonLabel, IonModal, IonPage, IonRow } from "@ionic/react"
 import { addCircleOutline, close, closeCircle, construct, cube, home } from "ionicons/icons";
 import { useState } from "react";
 import ProductsTable from "../components/ProductsTable";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
+import { getProducts } from "../store/productSlice";
+import Barcode from "react-barcode";
 
 
 const Products:React.FC=()=>{
     const history = useHistory()
     const [productView,setProductView] = useState<any>(null)
-    const [products] = useState<any[]>([
-        { id: 1, name: 'สินค้า A', unitPrice: 100, price: 100, instock: 10 , img: "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081" },
-        { id: 2, name: 'สินค้า B', unitPrice: 200, price: 200, instock: 5 , img: "https://img.freepik.com/free-photo/white-round-stand-podium-placing-products-3d-background_56104-2514.jpg?ga=GA1.1.834693362.1743170652&semt=ais_hybrid&w=740" },
-        { id: 3, name: 'สินค้า C', unitPrice: 300, price: 300, instock: 0 , img: "https://img.freepik.com/free-photo/minimal-podium-product-display-stand-pedestal-studio-gray-color-background-3d-rendering_56104-1752.jpg?t=st=1745851054~exp=1745854654~hmac=dfa4588dd1dd285c520251f0251aeba1895e983f25054af19f5ca99284c5459a&w=1060" },
-        { id: 4, name: 'สินค้า D', unitPrice: 150, price: 150, instock: 8 , img: "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081" },
-        { id: 5, name: 'สินค้า E', unitPrice: 90, price: 90, instock: 3 , img: "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081" },
-        { id: 6, name: 'สินค้า F', unitPrice: 100, price: 500, instock: 6 , img: "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081" },
-        { id: 7, name: 'สินค้า G', unitPrice: 500, price: 120, instock: 4 , img: "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081" },
-        { id: 8, name: 'สินค้า H', unitPrice: 80, price: 80, instock: 7 , img: "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081" },
-        { id: 9, name: 'สินค้า F', unitPrice: 100, price: 500, instock: 6 , img: "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081" },
-        { id: 10, name: 'สินค้า G', unitPrice: 500, price: 120, instock: 4 , img: "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081" },
-        { id: 11, name: 'สินค้า H', unitPrice: 80, price: 80, instock: 7 , img: "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081" },
-      
-      ]);
+    const [modal,setModal] = useState(false)
+    const products = useSelector(getProducts) 
+    const [pname,setPName] = useState("")
+    const [punitPrice,setPUnitPrice] = useState(0)
+    const [pbarcode , setPBarcode] = useState("")
+    const [unitsPricing , setUnitPricing] = useState(
+        [
+            {name:"แพ็ค",multiplier:6 , barcode:"PACK06-0056" ,price: 30.5 },
+            {name:"dozen",multiplier:6 , barcode:"DOZEN12-0056" ,price: 59.00 },
+        ]
+    )
+
+    const editProduce=(product:any)=>{
+        setProductView(product);
+        setPName(product?.name)
+        setPUnitPrice(product?.unitPrice)
+        setPBarcode(product?.id)
+        
+        setModal(true)
+    }
 
     return(
     <IonPage>
-        <div className='content-padding' >
-        <IonHeader mode="ios" className="ion-border" > 
-            <IonButtons className="ion-margin-horizontal">
-                <IonButton onClick={()=>{history.push("/products/add")}} > <IonIcon icon={addCircleOutline} /> &nbsp; เพิ่มสินค้า </IonButton>
-                <IonButton> <IonIcon icon={addCircleOutline} /> &nbsp; เพิ่มหมวดหมู่ </IonButton>
-            </IonButtons>
-        </IonHeader>
+        <IonContent>
+         <div className='content-background ion-padding'> 
         <IonContent className="ion-padding" >
-            <IonRow style={{height:"100%"}} >
-                <IonCol size="3" >
-                    <IonCard mode="ios" style={{minHeight:"20rem"}} >
-                        <IonGrid>
+            <IonRow style={{height:"100%"}} > 
+                <IonCol >
+                  <ProductsTable products={products} preview={(p:any)=>{editProduce(p) }}/>
+                </IonCol> 
+            </IonRow> 
+        </IonContent>
+        <IonModal isOpen={modal} mode="ios" onIonModalDidDismiss={()=>{setModal(false)}} >
+            <IonContent>
+                <IonGrid>
                             <IonRow >
-                                <IonCol size="12"  className="set-center" style={{flexDirection:"row" }} >
-                                    <div className="nput-cash" style={{border:"1px solid #ddd",borderRadius:"10px",width:"97%"}} >  
-                                     <IonInput mode="ios" className="iput" placeholder="Search" > </IonInput>
-                                    </div>
-                                    <IonButton fill="clear"  onClick={()=>{setProductView(null)}}>
+                                <IonCol size="12"  className="set-center" style={{flexDirection:"row" , justifyContent:"flex-end"}} >
+                                   
+                                    <IonButton fill="clear" size="small" color={"danger"}  onClick={()=>{setModal(false);setProductView(null)}}>
                                         <IonIcon icon={closeCircle} />
                                     </IonButton>
                                 </IonCol>
@@ -51,10 +58,48 @@ const Products:React.FC=()=>{
                                {productView && <IonCol size="12"  className="set-center" style={{maxHeight:"13rem"}}>
                                     <img src={productView?.img} alt="product preview"  height="100%" />
                                 </IonCol> }
-                                <IonCol size='12' ><IonLabel> </IonLabel></IonCol>
-                               <IonCol size='12' ><IonLabel> ชื่อสินค้า: {productView?.name}</IonLabel></IonCol>
-                               <IonCol size='12' > <IonLabel>ราคาต่อหน่วย: {productView?.unitPrice} บาท</IonLabel></IonCol>
-                               <IonCol size='12' > <IonLabel>จำนวนคงเหลือ: {productView?.instock  }</IonLabel>  </IonCol>
+                                {/* <IonCol size='12' ><IonLabel> </IonLabel></IonCol> */}
+                               <IonCol size='6' >
+                                <IonLabel> ชื่อสินค้า: </IonLabel>
+                                    <div className="input">
+                                        <IonInput  
+                                            mode="ios" value={pname} 
+                                            onIonChange={(e:any)=>{setPName(e.detail.value)}} 
+                                        > 
+                                    </IonInput>
+                                    </div>
+                                </IonCol>
+                               <IonCol size='6' > 
+                                <IonLabel>ราคาต่อหน่วย:  </IonLabel>
+                                 <div className="input">
+                                        <IonInput  
+                                            mode="ios" value={punitPrice} 
+                                            onIonChange={(e:any)=>{setPUnitPrice(e.detail.value)}} 
+                                        > 
+                                    </IonInput>
+                                    </div>
+                                </IonCol>
+                               <IonCol size='6' >    
+                                <IonLabel>คงเหลือ:  </IonLabel>
+                                 <div className="input">
+                                        <IonInput  
+                                            mode="ios" value={productView?.instock } 
+                                            disabled 
+                                        > 
+                                    </IonInput>
+                                    </div>
+                                </IonCol>
+                                <IonCol size='6' > 
+                                <IonLabel> Barcode:  </IonLabel> 
+                                    <div className="input">
+                                        <IonInput  
+                                            mode="ios" value={pbarcode} 
+                                            onIonChange={(e:any)=>{setPBarcode(e.detail.value)}} 
+                                        > 
+                                    </IonInput>
+                                    </div>
+                                     <Barcode value={pbarcode}   height={20} width={2.3} />
+                                </IonCol>
                              </IonRow> 
                              <IonRow>
                                 {/* <IonCol size='12' ><IonLabel>จำนวน:</IonLabel> </IonCol> */}
@@ -62,16 +107,28 @@ const Products:React.FC=()=>{
                                  
                                 </IonCol>
                             </IonRow> 
+
+                            {
+                                unitsPricing.map((e)=> 
+                                <IonRow>
+                                    <IonCol size="4" >
+                                        <div className="input">
+                                        <IonInput  
+                                                mode="ios" value={pbarcode} 
+                                                onIonChange={(e:any)=>{setPBarcode(e.detail.value)}} 
+                                            > 
+                                        </IonInput>
+                                        </div>
+                                    </IonCol>
+                                </IonRow>
+                                )
+                            }
+                           
                         </IonGrid>
-                    </IonCard>
-                </IonCol>
-                <IonCol size="9">
-                  <ProductsTable products={products} preview={(p:any)=>{setProductView(p)}}/>
-                </IonCol>
-            </IonRow>
-           
-        </IonContent>
+            </IonContent>
+        </IonModal>
         </div>
+        </IonContent>
     </IonPage>
     )
 }

@@ -47,7 +47,7 @@ const ProductsTable=({products,preview}:any)=>{
                 <IonCol size="1">{product.id}</IonCol>
                 <IonCol size="1.5"   ><img src={product.img}  style={{maxHeight:"2.5rem"}} /> </IonCol>
                 <IonCol>{product.name}</IonCol>
-                <IonCol>{product.price.toLocaleString()} บาท</IonCol>
+                <IonCol>{product.unitPrice?.toFixed(2)} บาท</IonCol>
                 <IonCol>{product.instock}</IonCol>
                 <IonCol>
                   <IonButton color="primary" size="small">แก้ไข</IonButton>

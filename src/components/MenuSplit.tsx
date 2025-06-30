@@ -45,7 +45,7 @@ const MenuSplitContent=()=>{
 
           <div className="devider"></div>
         <IonMenuToggle autoHide={false}>
-          <IonItem routerLink="/home" routerDirection="none" lines="none">
+          <IonItem routerLink="/products" routerDirection="none" lines="none">
             <IonIcon icon={cubeOutline} slot="start" />
             <IonLabel>จัดการสินค้า</IonLabel>
           </IonItem>
