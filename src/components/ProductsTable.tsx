@@ -1,11 +1,15 @@
 import { IonButton, IonCol, IonContent, IonFooter, IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonSearchbar, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react"
 import { barcode } from "ionicons/icons";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { getCatagories } from "../store/productSlice";
 
 const ProductsTable=({products,preview}:any)=>{
     const [searchText, setSearchText] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+    const categories = useSelector(getCatagories)
+    const [cat ,setCat] = useState(1)
   
     const filteredProducts = products.filter((p:any)=>
       p.name.toLowerCase().includes(searchText.toLowerCase())
@@ -24,11 +28,23 @@ const ProductsTable=({products,preview}:any)=>{
             onIonInput={e => setSearchText(e.detail.value!)}
             placeholder="ค้นหาสินค้า..."
           />
-          <IonSelect value={"all"}  style={{width:"10rem"}} interface="popover" mode="ios">
+          {/* <IonSelect value={"all"}  style={{width:"10rem"}} interface="popover" mode="ios">
             <IonSelectOption value={"all"}> ทั้งหมด </IonSelectOption>
             <IonSelectOption value={"cat1"} >  หมวด 1 </IonSelectOption>
             <IonSelectOption value={"cat2"} >  หมวด 2 </IonSelectOption>
-          </IonSelect>
+          </IonSelect> */}
+           <IonButton  fill='outline' mode='ios' size='small' style={{height:"1.8rem"}}>
+             <IonSelect className='select-categories'mode='ios' 
+              interface="popover"  value={cat} 
+              onIonChange={(e)=>{setCat(e.detail.value)}} 
+             >
+               {
+                 categories.map((cat)=>
+                 <IonSelectOption key={cat?.id} value={cat.id}> {cat?.name} </IonSelectOption>
+                 )
+               } 
+             </IonSelect>
+            </IonButton>
         </div>
   
           <IonGrid>
@@ -42,7 +58,7 @@ const ProductsTable=({products,preview}:any)=>{
               <IonCol className="set-center"><strong>Barcode</strong></IonCol>
             </IonRow>
             <div style={{width:"100%",height:"24rem",overflowY:"scroll"}} >
-            {currentItems.map((product:any) => (
+            {currentItems.filter((e:any)=> e.categories.includes(cat) ).map((product:any) => (
               <IonRow key={product.id} onClick={()=>{return preview(product)}} >
                 <IonCol size="1">{product.id}</IonCol>
                 <IonCol size="1.5"   ><img src={product.img}  style={{maxHeight:"2.5rem"}} /> </IonCol>

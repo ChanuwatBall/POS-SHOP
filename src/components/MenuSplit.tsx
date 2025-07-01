@@ -51,7 +51,7 @@ const MenuSplitContent=()=>{
           </IonItem>
         </IonMenuToggle>
         <IonMenuToggle autoHide={false}>
-          <IonItem routerLink="/settings" routerDirection="none" lines="none">
+          <IonItem routerLink="/categories" routerDirection="none" lines="none">
             <IonIcon icon={albumsOutline} slot="start" />
             <IonLabel>หมวดหมู่สินค้า</IonLabel>
           </IonItem>
