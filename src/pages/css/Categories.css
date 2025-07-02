@@ -1,0 +1,30 @@
+.table{
+    width: 100%;
+    background-color: var(--ion-color-light); 
+    padding: 1rem;
+}
+.table table{ 
+    width: 100%;
+    border: 1-x solid #ddd;
+}
+table th{
+    text-transform: uppercase;
+    padding: .3rem;
+}
+table th#id,
+table th#order{
+    width: 5%;
+}
+table thead{
+    border-bottom: 1px solid #DDD; 
+}
+table td{
+    text-align: center;
+    padding: 3px;
+}
+table td button{
+    padding: 5px;
+    background-color: var(--ion-color-primary);
+    color: var(--ion-color-light);
+    border-radius: 3px;
+}
