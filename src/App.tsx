@@ -50,6 +50,7 @@ import MenuSplitContent from './components/MenuSplit';
 import PinProducts from './pages/PinProducts';
 import Bills from './pages/Bills';
 import Categories from './pages/Categories';
+import PurchaseOrder from './pages/BackStock/PosPurchaseOrder';
 
 setupIonicReact();
 
@@ -83,6 +84,7 @@ const App: React.FC = () =>{
             <Route exact path={"/pin-products"} component={PinProducts} />
             <Route exact path={"/bills"} component={Bills} />
             <Route exact path={"/categories"} component={Categories} />
+            <Route exact path={"/backoffice/purchaseOrder"} component={PurchaseOrder} />
 
             <Route exact path="/">
               <Redirect to="/login" />
@@ -98,6 +100,7 @@ const App: React.FC = () =>{
             <Route exact path={"/pin-products"} component={PinProducts} />
             <Route exact path={"/bills"} component={Bills} />
             <Route exact path={"/categories"} component={Categories} />
+            <Route exact path={"/backoffice/purchaseOrder"} component={PurchaseOrder} />
 
             <Route exact path="/">
               <Redirect to="/login" />
