@@ -49,8 +49,11 @@ import { CheckLoginCookie } from './components/CheckCookie';
 import MenuSplitContent from './components/MenuSplit';
 import PinProducts from './pages/PinProducts';
 import Bills from './pages/Bills';
-import Categories from './pages/Categories';
+import Categories from './pages/Categories'; 
+import BackStock from './pages/BackStock';
+import Dashboard from './pages/Dashboard';
 import PurchaseOrder from './pages/BackStock/PosPurchaseOrder';
+import AddProductStock from './pages/BackStock/AddProductStock';
 
 setupIonicReact();
 
@@ -83,8 +86,11 @@ const App: React.FC = () =>{
             <Route exact path="/products/add" component={Product} />  
             <Route exact path={"/pin-products"} component={PinProducts} />
             <Route exact path={"/bills"} component={Bills} />
-            <Route exact path={"/categories"} component={Categories} />
-            <Route exact path={"/backoffice/purchaseOrder"} component={PurchaseOrder} />
+            <Route exact path={"/categories"} component={Categories} /> 
+            <Route exact path={"/backoffice/purchaseOrder"} component={PurchaseOrder} /> 
+            <Route exact path="/backoffice/dashboard" component={Dashboard} />
+             <Route exact path="/backoffice/addProductStock" component={AddProductStock} />
+
 
             <Route exact path="/">
               <Redirect to="/login" />
@@ -99,15 +105,33 @@ const App: React.FC = () =>{
             <Route exact path="/products/add" component={Product} />  
             <Route exact path={"/pin-products"} component={PinProducts} />
             <Route exact path={"/bills"} component={Bills} />
-            <Route exact path={"/categories"} component={Categories} />
+            <Route exact path={"/categories"} component={Categories} /> 
             <Route exact path={"/backoffice/purchaseOrder"} component={PurchaseOrder} />
+            <Route exact path="/backoffice/dashboard" component={Dashboard} />
+             <Route exact path="/backoffice/addProductStock" component={AddProductStock} />
 
             <Route exact path="/">
               <Redirect to="/login" />
             </Route>
         </IonRouterOutlet>
         }
+       {/* <IonSplitPane contentId="sub" when="lg">  
+          <IonMenu className='main-side-menu' contentId="sub" type="overlay" swipeGesture={false}>
+           
+            Sub Menu
+          </IonMenu>
 
+          <IonRouterOutlet  id="sub">
+             <Route exact path="/backoffice/purchaseOrder" component={PurchaseOrder} />
+             <Route exact path="/backoffice/dashboard" component={Dashboard} />
+            
+ 
+            <Route exact path="/backoffice">
+              <Redirect to="/backoffice/purchaseOrder" />
+            </Route>
+          </IonRouterOutlet>
+        </IonSplitPane> */}
+        
       </IonReactRouter>
         
     </IonApp>

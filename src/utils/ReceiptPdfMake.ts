@@ -18,7 +18,8 @@ pdfMake.fonts={
     }, 
   }
 
-
+ 
+export const PDFMake  = pdfMake
 interface ReciptProps{
     date:String
     products:any[]
@@ -83,3 +84,5 @@ export const generateReceiptPdfMake  = async ({
   // โหลดฟอนต์ภาษาไทย (ถ้าจำเป็น)
   pdfMake.createPdf(docDefinition).open(); // หรือ .download('receipt.pdf')
 };
+
+export default {}

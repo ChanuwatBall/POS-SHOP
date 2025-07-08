@@ -22,10 +22,11 @@ import {
   IonModal,
   IonIcon
 } from '@ionic/react';
-import pdfMake from 'pdfmake/build/pdfmake';
+// import pdfMake from 'pdfmake/build/pdfmake';
+import {PDFMake} from "../../utils/ReceiptPdfMake"
 import { addCircle } from 'ionicons/icons';
-// import pdfFonts from 'pdfmake/build/vfs_fonts';
- 
+import {fontPdfMake} from  "../../utils/vfs_fonts"
+  
 
 export default function PurchaseOrder() {
   const [modal , setModal] = useState(false)
@@ -44,11 +45,14 @@ export default function PurchaseOrder() {
     const total = newOrder.items.reduce((sum:any, item:any) => sum + (parseFloat(item.qty) || 0), 0);
     setOrders([...orders, { id, ...newOrder, total }]);
     setNewOrder({ date: '', supplier: '', note: '', items: [], status: 'สั่งซื้อแล้ว' });
+    setModal(false)
   };
 
   const addItemToOrder = () => {
-    setNewOrder({ ...newOrder, items: [...newOrder.items, newItem] });
-    setNewItem({ name: '', qty: '', unit: '' });
+    if(newItem?.name && newItem?.qty && newItem?.unit){
+      setNewOrder({ ...newOrder, items: [...newOrder.items, newItem] });
+      setNewItem({ name: '', qty: '', unit: '' });
+    }
   };
 
   const updateStatus = (id:any) => {
@@ -71,9 +75,12 @@ export default function PurchaseOrder() {
           }
         }
       ],
-      styles: { header: { fontSize: 18, bold: true } }
+      styles: { header: { fontSize: 18, bold: true } },
+      defaultStyle: {
+        font: "THSarabunNew",
+      },
     };
-    pdfMake.createPdf(doc).open();
+    PDFMake.createPdf(doc).open();
   };
 
   return (
@@ -118,15 +125,15 @@ export default function PurchaseOrder() {
                 <IonGrid>
                   <IonRow>
                     <IonCol size="3.5">
-                      <IonInput placeholder="ชื่อสินค้า" value={newItem.name} onIonChange={(e:any) => setNewItem({ ...newItem, name: e.detail.value })} />
+                      <IonInput className='input ' style={{margin:"0px",paddingLeft:"2px"}}  placeholder="ชื่อสินค้า" value={newItem.name} onIonChange={(e:any) => setNewItem({ ...newItem, name: e.detail.value })} />
                     </IonCol>
                     <IonCol size="3.5">
-                      <IonInput placeholder="จำนวน" value={newItem.qty} onIonChange={(e:any) => setNewItem({ ...newItem, qty: e.detail.value })} />
+                      <IonInput  className='input ' style={{margin:"0px",paddingLeft:"2px"}} placeholder="จำนวน" value={newItem.qty} onIonChange={(e:any) => setNewItem({ ...newItem, qty: e.detail.value })} />
                     </IonCol>
-                    <IonCol size="3.5">
-                      <IonInput placeholder="หน่วย" value={newItem.unit} onIonChange={(e:any) => setNewItem({ ...newItem, unit: e.detail.value })} />
+                    <IonCol size="3">
+                      <IonInput  className='input ' style={{margin:"0px",paddingLeft:"2px"}}  placeholder="หน่วย" value={newItem.unit} onIonChange={(e:any) => setNewItem({ ...newItem, unit: e.detail.value })} />
                     </IonCol>
-                    <IonCol size="2" >
+                    <IonCol size="2"className='set-center'  >
                       <IonButton size='small' onClick={addItemToOrder}>
                         <IonIcon icon={addCircle} />
                       </IonButton>
