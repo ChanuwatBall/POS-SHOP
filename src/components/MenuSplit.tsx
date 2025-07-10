@@ -77,9 +77,9 @@ const MenuSplitContent=()=>{
               </IonItem>
             </IonMenuToggle> 
             <IonMenuToggle autoHide={false}>
-              <IonItem routerLink="/backoffice/addProductStock" routerDirection="none" lines="none">
+              <IonItem routerLink="/backoffice/updateStock" routerDirection="none" lines="none">
                 <IonIcon icon={peopleOutline} slot="start" />
-                <IonLabel>เพิ่มสินค้าเข้าสต็อก</IonLabel>
+                <IonLabel>ปรับสต๊อก นับสินค้า</IonLabel>
               </IonItem>
             </IonMenuToggle> 
           </div>

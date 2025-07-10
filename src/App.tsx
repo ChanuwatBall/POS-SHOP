@@ -54,6 +54,7 @@ import BackStock from './pages/BackStock';
 import Dashboard from './pages/Dashboard';
 import PurchaseOrder from './pages/BackStock/PosPurchaseOrder';
 import AddProductStock from './pages/BackStock/AddProductStock';
+import StockAdjustment from './pages/BackStock/StockAdjustment';
 
 setupIonicReact();
 
@@ -90,6 +91,8 @@ const App: React.FC = () =>{
             <Route exact path={"/backoffice/purchaseOrder"} component={PurchaseOrder} /> 
             <Route exact path="/backoffice/dashboard" component={Dashboard} />
              <Route exact path="/backoffice/addProductStock" component={AddProductStock} />
+            <Route exact path="/backoffice/updateStock" component={StockAdjustment} />
+             
 
 
             <Route exact path="/">
@@ -109,6 +112,7 @@ const App: React.FC = () =>{
             <Route exact path={"/backoffice/purchaseOrder"} component={PurchaseOrder} />
             <Route exact path="/backoffice/dashboard" component={Dashboard} />
              <Route exact path="/backoffice/addProductStock" component={AddProductStock} />
+            <Route exact path="/backoffice/updateStock" component={StockAdjustment} />
 
             <Route exact path="/">
               <Redirect to="/login" />

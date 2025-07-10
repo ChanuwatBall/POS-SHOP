@@ -19,8 +19,10 @@ import {
   IonLabel,
   IonItem,
   IonList,
-  IonModal
+  IonModal,
+  IonIcon
 } from '@ionic/react';
+import { addCircle } from 'ionicons/icons';
 
 const categories = [
   { id: 1, name: "Favorite" },
@@ -59,6 +61,42 @@ export default function AddProductStock() {
 
       <IonContent className="ion-padding">
  
+        <IonCard>
+          <IonCardHeader>
+            <IonCardTitle className='set-center flex-row flex-start' >
+              รายการสินค้าในสต็อก
+               <IonButton 
+               expand='block'   size='small' mode='ios'  fill='clear'
+               onClick={()=>{setModal(true)}} 
+               style={{width:"3rem"}}>
+                 <IonIcon icon={addCircle} />
+              </IonButton>
+            </IonCardTitle>
+           
+          </IonCardHeader>
+          <IonCardContent>
+            <IonGrid>
+              <IonRow className="ion-text-center">
+                <IonCol>ลำดับ</IonCol>
+                <IonCol>สินค้า</IonCol>
+                <IonCol>จำนวน</IonCol>
+                <IonCol>ราคา</IonCol>
+              </IonRow>
+              {productList.map((item, idx) => (
+                <IonRow key={item.id} className="ion-text-center">
+                  <IonCol>{idx + 1}</IonCol>
+                  <IonCol>{item.name}</IonCol>
+                  <IonCol>{item.instock}</IonCol>
+                  <IonCol>{item.unitPrice}</IonCol>
+                </IonRow>
+              ))}
+            </IonGrid>
+          </IonCardContent>
+        </IonCard>
+
+      </IonContent>
+              
+
         <IonModal isOpen={modal} onIonModalDidDismiss={(e)=>{setModal(false)}} >
           <IonContent>
               <IonCard  style={{boxShadow:"none"}} >
@@ -103,34 +141,6 @@ export default function AddProductStock() {
           </IonContent>
         </IonModal>
 
-        <IonCard>
-          <IonCardHeader>
-            <IonCardTitle>รายการสินค้าในสต็อก</IonCardTitle>
-            <IonButton   size='small' mode='ios'  onClick={()=>{setModal(true)}} >
-              Add
-            </IonButton>
-          </IonCardHeader>
-          <IonCardContent>
-            <IonGrid>
-              <IonRow className="ion-text-center">
-                <IonCol>ลำดับ</IonCol>
-                <IonCol>สินค้า</IonCol>
-                <IonCol>จำนวน</IonCol>
-                <IonCol>ราคา</IonCol>
-              </IonRow>
-              {productList.map((item, idx) => (
-                <IonRow key={item.id} className="ion-text-center">
-                  <IonCol>{idx + 1}</IonCol>
-                  <IonCol>{item.name}</IonCol>
-                  <IonCol>{item.instock}</IonCol>
-                  <IonCol>{item.unitPrice}</IonCol>
-                </IonRow>
-              ))}
-            </IonGrid>
-          </IonCardContent>
-        </IonCard>
-
-      </IonContent>
     </IonPage>
   );
 } 
