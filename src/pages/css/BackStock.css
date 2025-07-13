@@ -1,0 +1,17 @@
+ion-modal.large{
+    --width: 80vw;
+    --height: 85vh;
+}
+.table{
+    background-color: var(--ion-color-light-shade);
+    height: 100%;
+    border-radius: var(--ion-radius);
+    padding: 0px;
+
+}
+.table thead{
+    background-color: var(--ion-color-light-tint); 
+}
+.table tbody tr td{
+    height: 3rem !important;
+}
