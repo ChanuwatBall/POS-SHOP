@@ -3,3 +3,38 @@
     border-top: 1px solid var(--ion-color-light-shade);
     margin-top: 2rem;
 }
+
+ion-item:hover{
+    color: var(--ion-color-primary) !important;
+}
+/* ไฟล์ MenuContent.css */
+
+/* Hover effect สำหรับ IonItem ในเมนู */
+ion-item {
+  transition: background-color 0.2s ease;
+}
+
+ion-item:hover {
+  background-color: var(--ion-color-primary) !important;
+  color: var(--ion-color-primary) ; /* ทำให้ตัวอักษรเด่นชัดเมื่อพื้นหลังเปลี่ยนสี */
+}
+
+ion-item:hover ion-icon,
+ion-item:hover ion-label {
+  color: var(--ion-color-primary)  !important; /* เปลี่ยนสี icon และ label ให้เข้ากับพื้นหลัง */
+}
+
+ /* ion-item.active ion-icon,
+ ion-item.active ion-label{ 
+  color: var(--ion-color-primary)  !important;
+ } */
+
+ ion-item.active {
+  background-color: var(--ion-color-primary) !important;
+  color:  var(--ion-color-primary)  !important; 
+}
+
+ion-item.active ion-icon,
+ion-item.active ion-label {
+  color:  var(--ion-color-primary)  !important; 
+}

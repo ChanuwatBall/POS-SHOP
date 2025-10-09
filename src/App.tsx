@@ -113,6 +113,8 @@ const App: React.FC = () =>{
             <Route exact path="/backoffice/dashboard" component={Dashboard} />
              <Route exact path="/backoffice/addProductStock" component={AddProductStock} />
             <Route exact path="/backoffice/updateStock" component={StockAdjustment} />
+ 
+            <Route exact path="/backoffice/report" component={BackStock} />
 
             <Route exact path="/">
               <Redirect to="/login" />
