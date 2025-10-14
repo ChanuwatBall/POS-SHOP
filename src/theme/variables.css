@@ -79,7 +79,9 @@ ion-content, ion-page , #root , .content-background{
  .flex-between{ justify-content: space-between;}
  .border-radius{ border-radius: 10px;}
  .bordered{ border: 1px solid #ddd;}
-
+ .bg-shade{
+  background-color: var(--ion-color-light-tint);
+ }
 :root{  
   --ion-radius: 10px;
 

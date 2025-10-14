@@ -55,11 +55,14 @@ import Dashboard from './pages/Dashboard';
 import PurchaseOrder from './pages/BackStock/PosPurchaseOrder';
 import AddProductStock from './pages/BackStock/AddProductStock';
 import StockAdjustment from './pages/BackStock/StockAdjustment';
+import BackofficeMenu from './components/BackofficeMenu';
+import InventoryReport from './pages/Reports/InventoryReport';
 
 setupIonicReact();
 
 const App: React.FC = () =>{
   // const [cookies, setCookie, removeCookie] = useCookies(['login']);
+  // const locate= useLocation();
   const logincookies = useSelector(getLogin)
 
   useEffect(()=>{ 
@@ -68,6 +71,12 @@ const App: React.FC = () =>{
       console.log('Running on Electron');
     }
   },[logincookies])
+
+
+  // 🔹 เงื่อนไขเลือกเมนู: ถ้า path เริ่มด้วย /backoffice → ใช้เมนูอีกชุด
+  const isBackoffice = window.location?.pathname.startsWith("/backoffice");
+
+
   return( 
   <IonApp >
     <CheckLoginCookie />
@@ -76,9 +85,9 @@ const App: React.FC = () =>{
           logincookies  ?
         <IonSplitPane contentId="main" when="lg"> {/* Keep menu open on large screens */}
           <IonMenu className='main-side-menu' contentId="main" type="overlay" swipeGesture={false}>
-            <MenuSplitContent />
-          </IonMenu>
-
+            
+            {isBackoffice ? <BackofficeMenu /> :<MenuSplitContent /> }
+          </IonMenu> 
           <IonRouterOutlet  id="main">
             <Route exact path="/login" component={Login} /> 
             <Route exact path="/home" component={Home} /> 
@@ -88,17 +97,20 @@ const App: React.FC = () =>{
             <Route exact path={"/pin-products"} component={PinProducts} />
             <Route exact path={"/bills"} component={Bills} />
             <Route exact path={"/categories"} component={Categories} /> 
+
             <Route exact path={"/backoffice/purchaseOrder"} component={PurchaseOrder} /> 
             <Route exact path="/backoffice/dashboard" component={Dashboard} />
-             <Route exact path="/backoffice/addProductStock" component={AddProductStock} />
+            <Route exact path="/backoffice/addProductStock" component={AddProductStock} />
             <Route exact path="/backoffice/updateStock" component={StockAdjustment} />
+            <Route exact path="/backoffice/report/inventory" component={InventoryReport} />
+            
              
 
 
             <Route exact path="/">
               <Redirect to="/login" />
             </Route>
-          </IonRouterOutlet>
+          </IonRouterOutlet> 
         </IonSplitPane>:
         <IonRouterOutlet  id="main">
             <Route exact path="/login" component={Login} /> 

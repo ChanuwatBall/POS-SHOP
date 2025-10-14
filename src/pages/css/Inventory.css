@@ -1,0 +1,14 @@
+.table{
+    width: 100%;
+    background: var(--ion-color-light);
+    padding: 1rem 0 1rem;
+}
+.table-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: .3rem;
+}
+.table-header.left {
+ 
+}
