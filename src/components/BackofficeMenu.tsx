@@ -7,8 +7,10 @@ const BackofficeMenu = () => {
     { label: "แดชบอร์ด", icon: gridOutline, link: "/backoffice/dashboard" },
     { label: "จัดการใบสั่งซื้อ", icon: peopleOutline, link: "/backoffice/purchaseOrder" },
     { label: "ปรับสต๊อกสินค้า", icon: barChartOutline, link: "/backoffice/updateStock" },
-    { label: "กลับหน้าหลัก", icon: homeOutline, link: "/home" },
+    { label: "การจัดการสินค้าใกล้หมด", icon: barChartOutline, link: "/backoffice/low-stock" },
+    { label: "การจัดการวันหมดอายุสินค้า", icon: barChartOutline, link: "/backoffice/expiry-manager" },
     { label: "รายงานสินค้าคงคลัง", icon: barChartOutline, link: "/backoffice/report/inventory" },
+    { label: "กลับหน้าหลัก", icon: homeOutline, link: "/home" },
   ];
 
   return (

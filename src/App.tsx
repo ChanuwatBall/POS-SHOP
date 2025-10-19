@@ -57,6 +57,8 @@ import AddProductStock from './pages/BackStock/AddProductStock';
 import StockAdjustment from './pages/BackStock/StockAdjustment';
 import BackofficeMenu from './components/BackofficeMenu';
 import InventoryReport from './pages/Reports/InventoryReport';
+import LowStockManager from './pages/BackStock/LowStockManager';
+import ExpiryManager from './pages/BackStock/ExpiryManager';
 
 setupIonicReact();
 
@@ -103,6 +105,8 @@ const App: React.FC = () =>{
             <Route exact path="/backoffice/addProductStock" component={AddProductStock} />
             <Route exact path="/backoffice/updateStock" component={StockAdjustment} />
             <Route exact path="/backoffice/report/inventory" component={InventoryReport} />
+            <Route exact path="/backoffice/low-stock" component={LowStockManager} />
+            <Route exact path="/backoffice/expiry-manager" component={ExpiryManager} />
             
              
 
