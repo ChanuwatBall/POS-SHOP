@@ -91,7 +91,8 @@ const App: React.FC = () =>{
             {isBackoffice ? <BackofficeMenu /> :<MenuSplitContent /> }
           </IonMenu> 
           <IonRouterOutlet  id="main">
-            <Route exact path="/login" component={Login} /> 
+            <Route exact path="/login" component={Login} />  
+            <Route exact path="/dashboard" component={Dashboard} /> 
             <Route exact path="/home" component={Home} /> 
             <Route exact path="/payment" component={Payment} /> 
             <Route exact path="/products" component={Products} /> 

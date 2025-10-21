@@ -106,3 +106,6 @@ ion-content, ion-page , #root , .content-background{
   --max-width: 18rem;
   width: 18rem !important;
 }
+ion-menu  {
+  --background: var(--ion-color-primary-tint);
+}
