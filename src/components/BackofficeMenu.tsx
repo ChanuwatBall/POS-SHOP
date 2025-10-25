@@ -1,15 +1,15 @@
 import { IonContent, IonList, IonItem, IonLabel, IonIcon, IonMenuToggle } from "@ionic/react";
-import { gridOutline, peopleOutline, barChartOutline, homeOutline } from "ionicons/icons";
+import { gridOutline, peopleOutline, barChartOutline, homeOutline, receiptOutline, cubeOutline, calendar, documentText, documentTextOutline, calendarOutline } from "ionicons/icons";
 import "./css/MenuContent.css";
 
 const BackofficeMenu = () => {
   const menus = [
     { label: "แดชบอร์ด", icon: gridOutline, link: "/backoffice/dashboard" },
-    { label: "จัดการใบสั่งซื้อ", icon: peopleOutline, link: "/backoffice/purchaseOrder" },
-    { label: "ปรับสต๊อกสินค้า", icon: barChartOutline, link: "/backoffice/updateStock" },
+    { label: "จัดการใบสั่งซื้อ", icon: receiptOutline, link: "/backoffice/purchaseOrder" },
+    { label: "ปรับสต๊อกสินค้า", icon: cubeOutline, link: "/backoffice/updateStock" },
     { label: "การจัดการสินค้าใกล้หมด", icon: barChartOutline, link: "/backoffice/low-stock" },
-    { label: "การจัดการวันหมดอายุสินค้า", icon: barChartOutline, link: "/backoffice/expiry-manager" },
-    { label: "รายงานสินค้าคงคลัง", icon: barChartOutline, link: "/backoffice/report/inventory" },
+    { label: "การจัดการวันหมดอายุสินค้า", icon: calendarOutline, link: "/backoffice/expiry-manager" },
+    { label: "รายงานสินค้าคงคลัง", icon: documentTextOutline, link: "/backoffice/report/inventory" },
     { label: "กลับหน้าหลัก", icon: homeOutline, link: "/home" },
   ];
 

@@ -31,17 +31,16 @@ const Categories:React.FC=()=>{
                         </IonCol>
                     </IonRow>
                     <br/><br/>
-                        <table>
-                            <thead>
-                        <tr>
-                            <th id="order" >Order</th> 
-                            {Object.keys(categories[0]).map(e=>
-                                <th id={e} >{e}</th>
-                            )}
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-
+                    <div className="table">
+                        <table >
+                            <thead  style={{background:'#FFF'}}>
+                                <tr>
+                                    <th id="order"  >Order</th> 
+                                    {Object.keys(categories[0]).map(e=>
+                                        <th id={e} >{e}</th>
+                                    )}
+                                    <th></th> 
+                                </tr> 
                             </thead>
                             <tbody>
                         {
@@ -50,13 +49,14 @@ const Categories:React.FC=()=>{
                                 <td className="ion-text-center">{index+1}</td>
                                 <td>{cat.id}</td>
                                 <td className="ion-text-left">{cat.name}</td>
-                                <td> <button>Edit</button></td>
-                                <td> <button> Delete</button></td>
+                                <td> <IonButton size="small" fill="clear" >Edit</IonButton> 
+                                <IonButton size="small" fill="clear" > Delete</IonButton></td>
                             </tr>
                             )
                         }
                             </tbody>
                         </table>
+                    </div>
                 </div> 
                 </div>
             </IonContent> 

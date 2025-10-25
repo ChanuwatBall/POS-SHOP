@@ -38,7 +38,7 @@ http://ionicframework.com/docs/theming/ */
   font-style: normal;
 }
 
-.line-seed , label , ion-label , ion-text, p , u , ion-button {
+.line-seed , label , ion-label , ion-text, p , u , ion-button , table , td{
   font-family: 'LineSeedEN' , 'LineSeedTH', sans-serif !important;
 }
 .line-seed.bold , b ,strong,ion-title{ 
@@ -105,7 +105,25 @@ ion-content, ion-page , #root , .content-background{
 .plt-desktop  ion-menu.main-side-menu {
   --max-width: 18rem;
   width: 18rem !important;
+  background: var(--ion-color-primary-tint) !important;
 }
-ion-menu  {
+ion-menu ion-item , ion-menu.main-side-menu ion-content{
+  --background: var(--ion-color-primary-shade);
+}
+ion-menu.main-side-menu ion-item ,
+ion-menu.main-side-menu ion-item ion-icon{color: #FFF;}
+ion-menu ion-accrodion-group{
+  --background: transparent !important;
+}
+ion-menu  ion-list{
+  background: transparent !important;
+}
+ion-accordion div[slot="content"] , ion-accordion ion-item[slot="header"]{
+  background: var(--ion-color-primary-tint) !important;
   --background: var(--ion-color-primary-tint);
+}
+
+
+ion-menu.main-side-menu ion-item:hover{
+  background: var(--ion-color-primary-shade) !important;
 }

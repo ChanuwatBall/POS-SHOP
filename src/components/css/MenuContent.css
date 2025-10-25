@@ -1,7 +1,9 @@
 .devider{
     width: 100%;
-    border-top: 1px solid var(--ion-color-light-shade);
-    margin-top: 2rem;
+    /* border-top: 1px solid var(--ion-color-light-shade); */
+    /* margin-top: 2rem; */
+    background-color: transparent;
+    height: 2rem;
 }
 
 ion-item:hover{

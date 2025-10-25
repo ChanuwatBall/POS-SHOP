@@ -1,4 +1,4 @@
-import { IonButton, IonCol, IonContent, IonFooter, IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonSearchbar, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react"
+import { IonButton, IonCol, IonContent, IonFooter, IonGrid, IonHeader, IonIcon, IonLabel, IonPage, IonRow, IonSearchbar, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react"
 import { barcode } from "ionicons/icons";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -62,9 +62,9 @@ const ProductsTable=({products,preview}:any)=>{
               <IonRow key={product.id} onClick={()=>{return preview(product)}} >
                 <IonCol size="1">{product.id}</IonCol>
                 <IonCol size="1.5"   ><img src={product.img}  style={{maxHeight:"2.5rem"}} /> </IonCol>
-                <IonCol>{product.name}</IonCol>
-                <IonCol>{product.unitPrice?.toFixed(2)} บาท</IonCol>
-                <IonCol>{product.instock}</IonCol>
+                <IonCol> <IonLabel>{product.name} </IonLabel> </IonCol>
+                <IonCol> <IonLabel> {product.unitPrice?.toFixed(2)} บาท </IonLabel> </IonCol>
+                <IonCol> <IonLabel> {product.instock} </IonLabel> </IonCol>
                 <IonCol>
                   <IonButton color="primary" size="small">แก้ไข</IonButton>
                   <IonButton color="danger" size="small">ลบ</IonButton>
@@ -76,27 +76,26 @@ const ProductsTable=({products,preview}:any)=>{
           </IonGrid>
   
           {/* Pagination */}
-          <IonRow className="ion-justify-content-between ion-padding-top">
-            <IonCol size="auto">
+          <div className="set-center ion-padding-top" style={{width:"100%",justifyContent:"space-between",flexDirection:"row"}}>
+             
               <IonButton
                 disabled={currentPage <= 1}
                 onClick={() => setCurrentPage(currentPage - 1)}
               >
                 ก่อนหน้า
-              </IonButton>
-            </IonCol>
-            <IonCol className="ion-text-center">
-              หน้า {currentPage} จาก {totalPages}
-            </IonCol>
-            <IonCol size="auto">
+              </IonButton> 
+            
+              <IonLabel>   หน้า {currentPage} จาก {totalPages}  </IonLabel> 
+           
+            
               <IonButton
                 disabled={currentPage >= totalPages}
                 onClick={() => setCurrentPage(currentPage + 1)}
               >
                 ถัดไป
               </IonButton>
-            </IonCol>
-          </IonRow>
+             
+          </div>
         </div>
    
     );

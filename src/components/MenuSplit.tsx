@@ -20,6 +20,7 @@ import {
   peopleOutline,
   pinOutline,
   receiptOutline,
+  trendingUp,
 } from "ionicons/icons";
 
 import { useCookies } from "react-cookie";
@@ -41,7 +42,7 @@ const MenuSplitContent = () => {
   /** 🔹 Define Menu Sections Dynamically */
   const mainMenus = [
     {
-      label: "การขาย",
+      label: "จุดขาย (POS)",
       icon: bagHandleOutline,
       link: "/home",
       badge: billPaused.length > 0 ? billPaused.length : null,
@@ -63,17 +64,17 @@ const MenuSplitContent = () => {
     },
     {
       label: "จัดการใบสั่งซื้อ",
-      icon: peopleOutline,
+      icon: receiptOutline,
       link: "/backoffice/purchaseOrder",
     },
     {
       label: "ปรับสต๊อก นับสินค้า",
-      icon: peopleOutline,
+      icon: cubeOutline,
       link: "/backoffice/updateStock",
     },
     {
       label: "รายงาน (เปิดแท็บใหม่)",
-      icon: peopleOutline,
+      icon: trendingUp,
       external: true,
       link: "/backoffice/report",
     },
@@ -132,7 +133,7 @@ const renderMenuItems = (menus: any[]) =>
         )}
       </IonMenuToggle>
     );
-  });
+  }); 
   
   return (
     <IonContent>
@@ -146,9 +147,19 @@ const renderMenuItems = (menus: any[]) =>
         <div className="devider"></div>
         {renderMenuItems(productMenus)}
 
-        <div className="devider"></div>
-        <IonAccordionGroup>
-          <IonAccordion value="backoffice">
+<div className="devider"></div>
+          <IonItem 
+            lines="none"
+            onClick={()=>window.open("/backoffice/dashboard","_blank")}
+            routerDirection="none"
+            className={location.pathname ===  "backoffice" ? "active" : ""}
+          >
+            <IonIcon icon={barChartOutline} slot="start" />
+            <IonLabel>จัดการสินค้าคงคลัง</IonLabel>
+          </IonItem>
+        {/* <div className="devider"></div>
+        <IonAccordionGroup >
+          <IonAccordion value="backoffice" >
             <IonItem slot="header" color="light">
               <IonIcon icon={barChartOutline} slot="start" />
               <IonLabel>จัดการหลังร้าน</IonLabel>
@@ -157,7 +168,7 @@ const renderMenuItems = (menus: any[]) =>
               {renderMenuItems(backofficeMenus)}
             </div>
           </IonAccordion>
-        </IonAccordionGroup>
+        </IonAccordionGroup> */}
 
         <div className="devider"></div>
         {renderMenuItems(miscMenus)}
